@@ -1,0 +1,65 @@
+{
+  "name": "clawpowers",
+  "version": "1.0.0",
+  "description": "Autonomous AI coding agent that orchestrates 26+ skills via OpenClaw",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "clawpowers": "dist/cli.js"
+  },
+  "scripts": {
+    "build:native": "cd native && cargo build --release --manifest-path ffi/Cargo.toml && DYLIB=$(find target/release -maxdepth 1 -name '*.dylib' | head -1) && [ -n \"$DYLIB\" ] && cp \"$DYLIB\" ffi/index.node || true",
+    "build": "npm run build:native || true && tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/ tests/",
+    "clean": "rm -rf dist",
+    "demo:task": "tsx demos/demo-task-execution.ts",
+    "demo:memory": "tsx demos/demo-memory-cycle.ts",
+    "demo:rsi": "tsx demos/demo-rsi-cycle.ts"
+  },
+  "files": [
+    "dist/",
+    "native/ffi/*.node",
+    "profiles/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "ai",
+    "agent",
+    "coding",
+    "openclaw",
+    "rsi",
+    "autonomous",
+    "self-improvement",
+    "x402",
+    "payments",
+    "memory"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/up2itnow0822/clawpowers.git"
+  },
+  "author": "Bill Wilson <bill@ai-agent-economy.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.14.0",
+    "tsup": "^8.1.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "growth",
+  "description": "Content and market growth — 10 skills for audience building",
+  "skills": [
+    "content-writing",
+    "seo-optimization",
+    "social-media",
+    "email-campaigns",
+    "analytics",
+    "market-research",
+    "competitor-analysis",
+    "copywriting",
+    "landing-pages",
+    "ab-testing"
+  ],
+  "defaultModel": "anthropic/claude-sonnet-4",
+  "maxConcurrentAgents": 2,
+  "paymentEnabled": true,
+  "rsiEnabled": true
+}

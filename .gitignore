@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.tsbuildinfo
+native/target/
+native/ffi/index.node
+native/ffi/clawpowers_ffi.node
+.DS_Store

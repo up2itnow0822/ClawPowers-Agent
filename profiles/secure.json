@@ -1,0 +1,26 @@
+{
+  "name": "secure",
+  "description": "Security-focused profile — 16 skills with security tooling",
+  "skills": [
+    "tdd",
+    "systematic-debugging",
+    "code-review",
+    "refactoring",
+    "documentation",
+    "git-workflow",
+    "testing",
+    "linting",
+    "type-checking",
+    "dependency-management",
+    "environment-setup",
+    "build-tooling",
+    "security-audit",
+    "vulnerability-scanning",
+    "secret-detection",
+    "access-control-review"
+  ],
+  "defaultModel": "anthropic/claude-sonnet-4",
+  "maxConcurrentAgents": 3,
+  "paymentEnabled": false,
+  "rsiEnabled": true
+}

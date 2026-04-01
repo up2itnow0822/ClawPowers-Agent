@@ -1,0 +1,31 @@
+{
+  "name": "full",
+  "description": "All skills enabled — 21 skills for maximum capability",
+  "skills": [
+    "tdd",
+    "systematic-debugging",
+    "code-review",
+    "refactoring",
+    "documentation",
+    "git-workflow",
+    "testing",
+    "linting",
+    "type-checking",
+    "dependency-management",
+    "environment-setup",
+    "build-tooling",
+    "writing-plans",
+    "dispatching-parallel-agents",
+    "architecture-review",
+    "performance-profiling",
+    "ci-cd-pipeline",
+    "security-audit",
+    "vulnerability-scanning",
+    "content-writing",
+    "market-research"
+  ],
+  "defaultModel": "anthropic/claude-sonnet-4",
+  "maxConcurrentAgents": 5,
+  "paymentEnabled": true,
+  "rsiEnabled": true
+}

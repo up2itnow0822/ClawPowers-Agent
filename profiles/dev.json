@@ -1,0 +1,22 @@
+{
+  "name": "dev",
+  "description": "Core development productivity — 12 skills for everyday coding",
+  "skills": [
+    "tdd",
+    "systematic-debugging",
+    "code-review",
+    "refactoring",
+    "documentation",
+    "git-workflow",
+    "testing",
+    "linting",
+    "type-checking",
+    "dependency-management",
+    "environment-setup",
+    "build-tooling"
+  ],
+  "defaultModel": "anthropic/claude-sonnet-4",
+  "maxConcurrentAgents": 3,
+  "paymentEnabled": false,
+  "rsiEnabled": true
+}

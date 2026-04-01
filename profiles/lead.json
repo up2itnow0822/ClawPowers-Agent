@@ -1,0 +1,28 @@
+{
+  "name": "lead",
+  "description": "Tech lead profile — 18 skills including orchestration and planning",
+  "skills": [
+    "tdd",
+    "systematic-debugging",
+    "code-review",
+    "refactoring",
+    "documentation",
+    "git-workflow",
+    "testing",
+    "linting",
+    "type-checking",
+    "dependency-management",
+    "environment-setup",
+    "build-tooling",
+    "writing-plans",
+    "dispatching-parallel-agents",
+    "architecture-review",
+    "performance-profiling",
+    "ci-cd-pipeline",
+    "team-coordination"
+  ],
+  "defaultModel": "anthropic/claude-sonnet-4",
+  "maxConcurrentAgents": 5,
+  "paymentEnabled": false,
+  "rsiEnabled": true
+}
