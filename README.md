@@ -2,6 +2,8 @@
 
 > The autonomous AI coding agent that plans, executes, reviews, remembers, and self-improves.
 
+> **Patent Pending** — Non-Custodial Multi-Chain Financial Infrastructure System for Autonomous AI Agents
+
 ClawPowers is a TypeScript framework for building autonomous coding agents with a full control loop, persistent memory, automatic payment handling (x402), and recursive self-improvement (RSI). It runs on [OpenClaw](https://openclaw.ai) and orchestrates 26+ skills to complete coding tasks end-to-end.
 
 ## What It Does
