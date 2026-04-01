@@ -1,9 +1,14 @@
 /**
  * Native acceleration bridge for payments.
- * Uses Rust wallet/fee/x402 crates when available.
- * All functions fall back gracefully if native module is not loaded.
+ *
+ * Tier 1: Native Rust .node addon (fastest — napi-rs compiled)
+ * Tier 2: WASM module (portable — wasm-pack compiled)
+ * Tier 3: Pure TypeScript fallback (universal)
+ *
+ * Note: Wallet and x402 are NOT available in WASM (excluded from wasm crate);
+ * those functions fall back directly to TypeScript when native is unavailable.
  */
-import { getNative } from '../native/index.js';
+import { getNative, getWasm, calculateFee as wasmCalculateFee } from '../native/index.js';
 
 export interface FeeCalculation {
   gross: number;
@@ -13,13 +18,17 @@ export interface FeeCalculation {
 }
 
 /**
- * Calculate transaction fee using the native Rust fee crate (77 bps default).
- * Falls back to a pure-TS 77 bps calculation.
+ * Calculate transaction fee using the best available backend.
+ *
+ * Tier 1: Native Rust fee crate (JsFeeSchedule.withDefaults, 77 bps)
+ * Tier 2: WASM fee crate (calculateFee via index.ts helper)
+ * Tier 3: Pure TypeScript 77 bps calculation
  */
 export function calculateTransactionFee(
   amount: number,
-  decimals: number = 6
+  decimals: number = 6,
 ): FeeCalculation {
+  // Tier 1: Native
   const native = getNative();
   if (native) {
     try {
@@ -32,42 +41,77 @@ export function calculateTransactionFee(
         feeRecipient: (raw.feeRecipient ?? raw.fee_recipient ?? '0x0000000000000000000000000000000000000000') as string,
       };
     } catch {
-      // Fall through to TS fallback
+      // Fall through to Tier 2
     }
   }
+
+  // Tier 2: WASM (via the unified helper in native/index.ts)
+  const wasm = getWasm();
+  if (wasm) {
+    try {
+      const result = wasmCalculateFee(amount, decimals, 'transaction');
+      return {
+        gross: result.gross_amount,
+        fee: result.fee_amount,
+        net: result.net_amount,
+        feeRecipient: '0x0000000000000000000000000000000000000000',
+      };
+    } catch {
+      // Fall through to Tier 3
+    }
+  }
+
+  // Tier 3: TypeScript fallback — 77 bps
   const fee = amount * 0.0077;
-  return { gross: amount, fee, net: amount - fee, feeRecipient: '0x0000000000000000000000000000000000000000' };
+  return {
+    gross: amount,
+    fee,
+    net: amount - fee,
+    feeRecipient: '0x0000000000000000000000000000000000000000',
+  };
 }
 
 /**
- * Build an X-Payment header using the native Rust x402 crate.
- * Falls back to a base64-encoded JSON representation.
+ * Build an X-Payment header.
+ *
+ * Tier 1: Native Rust x402 crate (JsX402Client)
+ * Tier 2: Not available in WASM (wallet/x402 excluded from wasm crate)
+ * Tier 3: Base64-encoded JSON representation
  */
 export function createPaymentHeader(paymentJson: string, signature: string): string {
+  // Tier 1: Native
   const native = getNative();
   if (native) {
     try {
       const client = new native.JsX402Client();
       return client.createPaymentHeader(paymentJson, signature);
     } catch {
-      // Fall through
+      // Fall through to Tier 3 (WASM does not expose x402)
     }
   }
+
+  // Tier 3: TypeScript fallback (x402 excluded from WASM build)
   return Buffer.from(JSON.stringify({ payment: JSON.parse(paymentJson), signature })).toString('base64');
 }
 
 /**
- * Generate a new EVM agent wallet address using the native Rust wallet crate.
- * Returns a zero address if native is unavailable.
+ * Generate a new EVM agent wallet address.
+ *
+ * Tier 1: Native Rust wallet crate (JsAgentWallet.generate)
+ * Tier 2: Not available in WASM (wallet excluded from wasm crate)
+ * Tier 3: Returns zero address (no crypto wallet available without native)
  */
 export function generateWalletAddress(): string {
+  // Tier 1: Native
   const native = getNative();
   if (native) {
     try {
       return native.JsAgentWallet.generate().address();
     } catch {
-      // Fall through
+      // Fall through to Tier 3 (WASM does not expose wallet)
     }
   }
+
+  // Tier 3: TypeScript fallback (wallet excluded from WASM build)
   return '0x0000000000000000000000000000000000000000';
 }
