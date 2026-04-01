@@ -12,6 +12,7 @@ members = [
     "crates/verification",
     "crates/security",
     "ffi",
+    "wasm",
 ]
 
 [workspace.package]
