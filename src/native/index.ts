@@ -165,12 +165,10 @@ function tryLoadNative(): NativeModule | null {
 function tryLoadWasm(): WasmModule | null {
   // Try Node.js WASM package first
   const wasmCandidates = [
-    // Node.js target (pkg-node)
-    join(__dirname, '../../../packages/clawpowers-core/wasm/pkg-node/clawpowers_wasm.js'),
-    join(__dirname, '../../packages/clawpowers-core/wasm/pkg-node/clawpowers_wasm.js'),
-    // Web target (pkg) — may need different loading
-    join(__dirname, '../../../packages/clawpowers-core/wasm/pkg/clawpowers_wasm.js'),
-    join(__dirname, '../../packages/clawpowers-core/wasm/pkg/clawpowers_wasm.js'),
+    // Node.js target — relative to src/native/, goes up to repo root then into native/wasm/
+    join(__dirname, '../../native/wasm/pkg-node/clawpowers_wasm.js'),
+    // Web target
+    join(__dirname, '../../native/wasm/pkg/clawpowers_wasm.js'),
   ];
 
   for (const p of wasmCandidates) {
