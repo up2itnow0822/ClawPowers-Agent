@@ -504,7 +504,7 @@ mod wasm_store {
     }
 }
 
-#[cfg(feature = "wasm")]
+#[cfg(all(feature = "wasm", not(feature = "native")))]
 pub use wasm_store::CanonicalStore;
 
 // If neither feature is enabled, provide the native store as default

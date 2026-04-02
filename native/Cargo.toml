@@ -13,6 +13,7 @@ members = [
     "crates/security",
     "ffi",
     "wasm",
+    "pyo3",
 ]
 
 [workspace.package]
@@ -51,6 +52,9 @@ napi-derive = "3"
 
 # WASM (optional)
 wasm-bindgen = "0.2"
+
+# PyO3 (Python bindings)
+pyo3 = { version = "0.24", features = ["extension-module", "abi3-py39"] }
 
 # Testing / Bench
 criterion = { version = "0.5", features = ["html_reports"] }
