@@ -119,3 +119,30 @@ export {
   ABTestManager,
   RSIAuditLog,
 } from './rsi/index.js';
+
+// Parallel Swarm
+export {
+  ConcurrencyManager,
+  TokenPool,
+  SwarmMemory,
+  classifyHeuristic,
+  selectModel,
+  classifyTasks,
+} from './swarm/index.js';
+
+// ITP — Identical Twins Protocol
+export { encode as itpEncode, decode as itpDecode, healthCheck as itpHealthCheck } from './itp/index.js';
+export type { EncodeResult as ItpEncodeResult, DecodeResult as ItpDecodeResult } from './itp/index.js';
+export { itpEncodeMessage, itpDecodeMessage } from './itp/delegation-hook.js';
+export type {
+  ModelComplexity,
+  TaskStatus,
+  SwarmTask,
+  SwarmResult,
+  SwarmRun,
+  SwarmConfig,
+  SwarmMemoryEntry,
+  SwarmMemoryHandle,
+  TokenAllocation,
+  TokenUsageReport,
+} from './swarm/index.js';
