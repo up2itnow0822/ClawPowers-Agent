@@ -26,6 +26,8 @@ ClawPowers runs your coding tasks through a five-phase control loop:
 - **Memory** — Three-tier memory (working, episodic, procedural) persists lessons across tasks
 - **RSI** — Recursive Self-Improvement with tiered autonomy (T1–T4) and A/B testing
 - **Payments** — Automatic x402 payment handling when APIs return 402 Payment Required
+- **Parallel Swarm** — Fan-out concurrent task execution with model routing and token budgeting
+- **ITP (Identical Twins Protocol)** — Context compression eliminating redundant tokens across agent sessions
 
 ## Native Acceleration
 
@@ -57,6 +59,40 @@ The native addon (`native/ffi/index.node`) will be built automatically if Rust i
 import { isNativeAvailable } from 'clawpowers';
 console.log('Native acceleration:', isNativeAvailable());
 ```
+
+## Parallel Swarm
+
+ClawPowers Agent includes a parallel execution engine for running multiple tasks concurrently with intelligent resource management:
+
+- **ConcurrencyManager** — Bounded parallel execution with configurable limits
+- **TokenPool** — Global token budget allocation and tracking per task
+- **Model Router** — Automatic complexity classification (simple/moderate/complex) routes tasks to optimal models
+- **Swarm Memory** — Shared episodic context across concurrent tasks
+
+### Verified Performance (April 2026)
+
+5 health/monitoring tasks — parallel swarm vs 5 sequential cron jobs:
+
+| Metric | Sequential | Parallel Swarm | Improvement |
+|--------|-----------|----------------|-----------|
+| Tokens | 52,800 | 18,300 | **65% reduction** |
+| Wall time | ~25s | ~5s | **5× faster** |
+| Cost/run | $0.182 | $0.062 | **66% cheaper** |
+
+## ITP (Identical Twins Protocol)
+
+Context compression protocol for multi-agent communication. Deduplicates shared context between agents using the same or similar models.
+
+```typescript
+import { itpEncode, itpDecode, encodeTaskDescription } from 'clawpowers';
+
+// Compress task before delegation
+const encoded = await encodeTaskDescription('Analyze revenue data');
+// Decompress result from worker
+const decoded = await decodeSwarmResult(workerResult);
+```
+
+Graceful fallback: operates in passthrough mode when the ITP server is offline.
 
 ## Quick Start
 
