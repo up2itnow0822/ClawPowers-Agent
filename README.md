@@ -54,17 +54,18 @@ ClawPowers Agent includes a parallel execution engine for running multiple tasks
 - **Model Router** — Automatic complexity classification (simple/moderate/complex) routes tasks to optimal models
 - **Swarm Memory** — Shared episodic context across concurrent tasks
 
-### Verified Performance (April 2026)
+### Parallel Swarm Benefits
 
-5 health/monitoring tasks — parallel swarm vs 5 sequential cron jobs:
+Running N tasks as a single swarm instead of N separate sessions avoids reloading shared context (system prompt, workspace files, tool schemas) for every task.
 
-| Metric | Sequential | Parallel Swarm | Improvement |
-|--------|-----------|----------------|-----------|
-| Tokens | 52,800 | 18,300 | **65% reduction** |
-| Wall time | ~25s | ~5s | **5× faster** |
-| Cost/run | $0.182 | $0.062 | **66% cheaper** |
+- **Wall time:** parallel fan-out is significantly faster than sequential execution, scaling with task count and concurrency limit
+- **Token usage:** shared-context overhead is paid once per swarm run instead of once per task
 
-## ITP (Identical Twins Protocol)
+Exact token reduction varies with context size, task complexity, and model. We are collecting real API traces to publish concrete numbers. To model the savings for your own workload, see `benchmarks/swarm-vs-sequential.mjs` in the [`clawpowers`](https://github.com/up2itnow0822/ClawPowers-Skills) library.
+
+## ITP (Identical Twins Protocol) — Experimental
+
+> **Status: Experimental, pending production measurement.** Speed improvements on parallel identical-context tasks are confirmed. Exact token-reduction magnitude varies significantly by workload and has not yet been validated across enough real runs to publish a headline number.
 
 Context compression protocol for multi-agent communication. Deduplicates shared context between agents using the same or similar models.
 
