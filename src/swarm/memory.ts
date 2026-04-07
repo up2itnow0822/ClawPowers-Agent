@@ -3,7 +3,7 @@
  * Agents can share findings and query across the swarm during a run.
  */
 
-import type { SwarmMemoryEntry, SwarmMemoryHandle } from './types.js';
+import type { SwarmMemoryEntry, SwarmMemoryHandle } from 'clawpowers';
 
 export class SwarmMemory implements SwarmMemoryHandle {
   private readonly entries: Map<string, SwarmMemoryEntry> = new Map();

@@ -11,12 +11,14 @@
 import { mkdtempSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { EpisodicMemory } from '../src/memory/episodic.js';
-import { ProceduralMemory } from '../src/memory/procedural.js';
-import { CheckpointManager } from '../src/memory/checkpoint.js';
-import { ContextInjector } from '../src/memory/context-injector.js';
-import { WorkingMemoryManager } from '../src/memory/working.js';
-import type { EpisodicEntry, Goal, CheckpointState } from '../src/types.js';
+import {
+  EpisodicMemory,
+  ProceduralMemory,
+  CheckpointManager,
+  ContextInjector,
+  WorkingMemoryManager,
+} from 'clawpowers';
+import type { EpisodicEntry, Goal, CheckpointState } from 'clawpowers';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

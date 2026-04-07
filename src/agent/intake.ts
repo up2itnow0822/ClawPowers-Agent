@@ -4,7 +4,7 @@
  */
 
 import { randomUUID } from 'node:crypto';
-import type { Goal, GoalSource } from '../types.js';
+import type { Goal, GoalSource } from 'clawpowers';
 
 const MAX_TASK_LENGTH = 10_000;
 

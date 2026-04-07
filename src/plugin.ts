@@ -4,11 +4,12 @@
  * Exports lifecycle hooks: onLoad, onSessionStart, onSessionEnd, onError.
  */
 
-import type { AgentState, Profile } from './types.js';
+import type { Profile } from 'clawpowers';
+import { loadConfig, discoverSkills, getActiveSkills } from 'clawpowers';
+import type { AgentState } from './agent-types.js';
 import { createAgentState } from './agent.js';
-import { loadConfig } from './config.js';
-import { SKILLS_DIR } from './constants.js';
-import { discoverSkills, getActiveSkills } from './skills.js';
+import { SKILLS_DIR } from './agent-constants.js';
+import pkg from '../package.json' with { type: 'json' };
 
 // ─── Plugin Types ─────────────────────────────────────────────────────────────
 
@@ -47,7 +48,7 @@ function loadProfileForConfig(): Profile {
 export function createClawPowersPlugin(): ClawPowersPlugin {
   return {
     name: 'clawpowers',
-    version: '1.0.0',
+    version: pkg.version,
 
     onLoad(): PluginContext {
       const config = loadConfig();

@@ -31,29 +31,14 @@ ClawPowers runs your coding tasks through a five-phase control loop:
 
 ## Native Acceleration
 
-ClawPowers Agent includes optional Rust-powered native acceleration via [clawpowers-core](https://github.com/up2itnow0822/clawpowers-core), providing:
+Rust, WASM, and TypeScript fallbacks live in the **`clawpowers` npm package** ([ClawPowers-Skills](https://github.com/up2itnow0822/ClawPowers-Skills)). Installing `clawpowers-agent` pulls in `clawpowers` as a dependency; you do not build native code in this repo.
 
-| Module | Native Capability | TypeScript Fallback |
-|--------|------------------|---------------------|
-| Payments | `JsFeeSchedule` (77 bps fee calc) | Pure-TS 77 bps formula |
-| Payments | `JsX402Client` (HTTP 402 header parsing) | Base64-encoded JSON |
-| Payments | `JsAgentWallet` (EVM key generation) | Zero address placeholder |
-| Memory | `JsCanonicalStore` (SQLite-backed immutable records) | JSONL file storage |
-| Memory | `JsTurboCompressor` (4x vector compression) | Not available |
-| Memory | `JsWriteFirewall` (namespace access control) | Fail-open (allow all) |
+| Module | Native capability | TypeScript fallback |
+|--------|-------------------|----------------------|
+| Payments | Fee schedule, x402 parsing, wallet helpers | Pure-TS equivalents |
+| Memory | Canonical store, compression, write firewall | JSONL / in-memory |
 
-### Building the Native Addon
-
-**Requirements:** Rust toolchain (rustc 1.70+, cargo)
-
-```bash
-cd clawpowers
-npm run build:native
-```
-
-The native addon (`native/ffi/index.node`) will be built automatically if Rust is available. If Rust is not installed, the TypeScript fallback activates silently — no errors.
-
-### Checking Native Status
+### Checking native status
 
 ```typescript
 import { isNativeAvailable } from 'clawpowers';
@@ -97,8 +82,8 @@ Graceful fallback: operates in passthrough mode when the ITP server is offline.
 ## Quick Start
 
 ```bash
-# Install
-npm install -g clawpowers
+# Install (pulls in clawpowers automatically)
+npm install -g clawpowers-agent
 
 # Initialize config at ~/.clawpowers/
 clawpowers init
@@ -113,40 +98,35 @@ clawpowers status
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        ClawPowers Agent                         │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────────── Agent Control Loop ──────────────────┐    │
-│  │  Intake → Planner → Executor → Reviewer → Completion    │    │
-│  └─────────────────────────────────────────────────────────┘    │
-│                                                                 │
-│  ┌──── Memory ────┐  ┌──── RSI ─────┐  ┌──── Payments ───┐    │
-│  │ Working        │  │ Metrics      │  │ 402 Discovery   │    │
-│  │ Episodic       │  │ Hypothesis   │  │ Spending Policy │    │
-│  │ Procedural     │  │ Mutation     │  │ Payment Exec    │    │
-│  │ Checkpoint     │  │ A/B Testing  │  │ Audit Log       │    │
-│  │ Context Inject │  │ Audit Trail  │  │                 │    │
-│  └────────────────┘  └──────────────┘  └─────────────────┘    │
-│                                                                 │
-│  ┌──── Config ────┐  ┌──── Skills ──┐  ┌──── Gateway ────┐    │
-│  │ Zod-validated  │  │ SKILL.md     │  │ YAML config     │    │
-│  │ Dot-notation   │  │ Discovery    │  │ OpenClaw        │    │
-│  │ Profile system │  │ Matching     │  │ Integration     │    │
-│  └────────────────┘  └──────────────┘  └─────────────────┘    │
-└─────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        clawpowers-agent (this repo)                      │
+├─────────────────────────────────────────────────────────────────────────┤
+│  State machine (`agent.ts`) · Control loop (`src/agent/*`) · CLI         │
+│  OpenClaw plugin (`plugin.ts`) · Gateway YAML (`gateway.ts`)             │
+│  SwarmMemory (`src/swarm/memory.ts`) · ITP delegation hooks (`itp/*`)   │
+└───────────────────────────────────┬─────────────────────────────────────┘
+                                    │ imports
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         clawpowers (ClawPowers-Skills)                   │
+├─────────────────────────────────────────────────────────────────────────┤
+│  Config · Constants · Types · Skills loader · Memory · Payments · RSI    │
+│  Wallet · ITP client · Parallel swarm (concurrency, token pool, router) │
+│  Native / WASM acceleration                                              │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Module Breakdown
 
-| Module | Files | What It Does |
-|--------|-------|-------------|
-| **Agent Control Loop** | `src/agent/` | Intake parses tasks into Goals. Planner decomposes into dependency-ordered Steps with skill matching. Executor runs steps with retry logic and parallel execution. Reviewer validates against success criteria. Completion generates outcome records and extracts lessons. |
-| **Memory** | `src/memory/` | Working memory (in-process, token-budgeted). Episodic memory (JSONL append-only, keyword search). Procedural memory (JSON with atomic writes and backups). Checkpoint manager (crash recovery). Context injector (relevance-scored memory injection). |
-| **RSI** | `src/rsi/` | Metrics collector (per-task and per-skill JSONL). Hypothesis engine (detects low success rates, slow skills, co-occurring pairs). Mutation engine (tier-enforced, safety-invariant-protected). A/B test manager (min sample sizes, promotion/rollback thresholds). Audit log (append-only trail). |
-| **Payments** | `src/payments/` | 402 detection with x402 header parsing. Spending policy (daily limits, per-transaction limits, domain allowlists, fail-closed). Payment executor with MCP client interface. Audit logging. No auto-retry on failure (financial safety). |
-| **Config** | `src/config.ts` | Zod-validated JSON config at `~/.clawpowers/config.json`. Dot-notation get/set. T4 safety invariant enforced at validation layer. |
-| **Skills** | `src/skills.ts` | SKILL.md frontmatter parser. Directory-based skill discovery. Profile-based skill filtering. |
+| Area | Location | What it does |
+|------|----------|----------------|
+| **From `clawpowers`** | npm package | Single source of truth for config, payments, memory, RSI, wallet, skills discovery, swarm primitives (except `SwarmMemory` class), ITP encode/decode, native acceleration. |
+| **Agent control loop** | `src/agent/` | Intake → planner → executor → reviewer → completion. |
+| **Agent state machine** | `src/agent.ts`, `src/agent-constants.ts`, `src/agent-types.ts` | `AgentState`, validated transitions, paths/safety constants not re-exported by the Skills entry. |
+| **CLI** | `src/cli.ts` | Commander `clawpowers` binary. |
+| **Plugin & gateway** | `src/plugin.ts`, `src/gateway.ts` | OpenClaw lifecycle hooks; gateway YAML generation. |
+| **SwarmMemory** | `src/swarm/memory.ts` | In-process shared key/value store for parallel runs (re-exported from the agent package). |
+| **ITP delegation** | `src/itp/delegation-hook.ts` | `itpEncodeMessage` / `itpDecodeMessage` wrappers for the delegation pipeline. |
 
 ## RSI Tiers
 
@@ -247,8 +227,8 @@ clawpowers skills remove <name>          # Remove skill from active profile
 ### Setup
 
 ```bash
-git clone https://github.com/up2itnow0822/clawpowers.git
-cd clawpowers
+git clone https://github.com/up2itnow0822/ClawPowers-Agent.git
+cd ClawPowers-Agent
 npm install
 ```
 
@@ -258,7 +238,7 @@ npm install
 npm run build          # Build with tsup
 npm run dev            # Build in watch mode
 npm run typecheck      # tsc --noEmit
-npm test               # vitest run (300+ tests)
+npm test               # vitest run (agent-focused suite; see CHANGELOG for count)
 npm run test:watch     # vitest in watch mode
 npm run lint           # eslint
 npm run clean          # Remove dist/
@@ -268,21 +248,17 @@ npm run clean          # Remove dist/
 
 ```
 tests/
-├── agent/            # Unit tests for control loop modules
-├── memory/           # Unit tests for memory modules
-├── payments/         # Unit tests for payment modules
-├── rsi/              # Unit tests for RSI modules
-├── integration/      # Integration tests (cross-module)
-│   ├── control-loop.test.ts
-│   ├── memory-persistence.test.ts
-│   ├── rsi-cycle.test.ts
-│   └── payment-flow.test.ts
-├── agent.test.ts     # State machine tests
-├── config.test.ts    # Config CRUD tests
-├── types.test.ts     # Type system tests
-├── skills.test.ts    # Skill discovery tests
-└── cli.test.ts       # CLI integration tests
+├── agent/                 # Control loop unit tests
+├── integration/
+│   └── control-loop.test.ts
+├── agent.test.ts          # State machine
+├── config.test.ts         # Config (via clawpowers)
+├── types.test.ts          # Types (via clawpowers)
+├── skills.test.ts         # Skill discovery (via clawpowers)
+└── cli.test.ts            # CLI
 ```
+
+Memory, payments, and RSI behavior are covered in the **ClawPowers-Skills** (`clawpowers`) test suite; this repo keeps tests focused on the agent runtime and re-exports.
 
 ### Demos
 

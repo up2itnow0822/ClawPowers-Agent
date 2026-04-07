@@ -4,13 +4,22 @@
  */
 
 import { Command } from 'commander';
-import { VERSION, PACKAGE_NAME, CLAWPOWERS_HOME, SKILLS_DIR } from './constants.js';
-import { loadConfigSafe, saveConfig, initConfig, getConfigValue, setConfigValue } from './config.js';
-import { discoverSkills } from './skills.js';
+import { mkdirSync, existsSync } from 'node:fs';
+import {
+  PACKAGE_NAME,
+  CLAWPOWERS_HOME,
+  loadConfigSafe,
+  saveConfig,
+  initConfig,
+  getConfigValue,
+  setConfigValue,
+  discoverSkills,
+} from 'clawpowers';
+import type { Profile } from 'clawpowers';
+import pkg from '../package.json' with { type: 'json' };
+import { SKILLS_DIR } from './agent-constants.js';
 import { createAgentState } from './agent.js';
 import { writeGatewayConfig } from './gateway.js';
-import { mkdirSync, existsSync } from 'node:fs';
-import type { Profile } from './types.js';
 
 // ─── Program ──────────────────────────────────────────────────────────────────
 
@@ -19,7 +28,7 @@ const program = new Command();
 program
   .name(PACKAGE_NAME)
   .description('Autonomous AI coding agent — orchestrates 26+ skills via OpenClaw')
-  .version(VERSION);
+  .version(pkg.version);
 
 // ─── run <task> ───────────────────────────────────────────────────────────────
 
@@ -39,7 +48,7 @@ program
       rsiEnabled: config.rsi.enabled,
     };
     const state = createAgentState(profile);
-    console.log(`⚡ ClawPowers Agent v${VERSION}`);
+    console.log(`⚡ ClawPowers Agent v${pkg.version}`);
     console.log(`📋 Task: ${task}`);
     console.log(`👤 Profile: @${state.profile.name}`);
     console.log(`🔄 Status: ${state.status}`);
@@ -55,7 +64,7 @@ program
   .action(() => {
     const config = loadConfigSafe();
     const skills = discoverSkills(config.skillsDir ?? SKILLS_DIR);
-    console.log(`ClawPowers Agent v${VERSION}`);
+    console.log(`ClawPowers Agent v${pkg.version}`);
     console.log('========================');
     console.log(`Status:    idle`);
     console.log(`Profile:   @${config.profile}`);
@@ -79,7 +88,7 @@ program
   .command('init')
   .description('Initialize ClawPowers home directory and config')
   .action(() => {
-    console.log(`⚡ Initializing ClawPowers Agent v${VERSION}...`);
+    console.log(`⚡ Initializing ClawPowers Agent v${pkg.version}...`);
 
     // Create directory structure
     const dirs = [CLAWPOWERS_HOME, SKILLS_DIR];

@@ -7,10 +7,13 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
 import {
-  parseFrontmatter, loadSkillManifest, discoverSkills,
-  getActiveSkills, listSkillsWithStatus,
-} from '../src/skills.js';
-import type { Profile } from '../src/types.js';
+  parseFrontmatter,
+  loadSkillManifest,
+  discoverSkills,
+  getActiveSkills,
+  listSkillsWithStatus,
+} from 'clawpowers';
+import type { Profile } from 'clawpowers';
 
 describe('Skill Loader', () => {
   let testDir: string;

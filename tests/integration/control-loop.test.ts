@@ -9,8 +9,8 @@ import { createPlan, approvePlan, validatePlanDependencies } from '../../src/age
 import { executeStep, executePlan } from '../../src/agent/executor.js';
 import { reviewOutput } from '../../src/agent/reviewer.js';
 import { completeTask } from '../../src/agent/completion.js';
-import { WorkingMemoryManager } from '../../src/memory/working.js';
-import type { Step, Plan, WorkingMemory, SkillManifest, Goal } from '../../src/types.js';
+import { WorkingMemoryManager } from 'clawpowers';
+import type { Step, Plan, WorkingMemory, SkillManifest, Goal } from 'clawpowers';
 
 const testSkills: SkillManifest[] = [
   { name: 'tdd', description: 'Test driven development', path: '/skills/tdd', requirements: null },

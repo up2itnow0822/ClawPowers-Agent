@@ -3,13 +3,7 @@
  * Runs plan steps with retry logic, parallel execution, and dependency tracking.
  */
 
-import type {
-  Step,
-  Plan,
-  WorkingMemory,
-  StepResult,
-  PlanResult,
-} from '../types.js';
+import type { Step, Plan, WorkingMemory, StepResult, PlanResult } from 'clawpowers';
 
 /**
  * Wait for a specified number of milliseconds.

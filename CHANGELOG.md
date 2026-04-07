@@ -4,6 +4,19 @@ All notable changes to ClawPowers Agent are documented here.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-04-06
+
+### Changed
+
+- **ClawPowers-Skills is a dependency** — The `clawpowers` npm package ([ClawPowers-Skills](https://github.com/up2itnow0822/ClawPowers-Skills)) is the single source of truth for payments, memory, RSI, wallet, swarm primitives, ITP client, skills loader, and native/WASM acceleration. The agent uses `file:../ClawPowers-Skills` for local development; published installs use `clawpowers` from npm.
+- **Agent scope** — This repo is a thin runtime: agent state machine, control loop (`src/agent/`), CLI, OpenClaw plugin, gateway config, `SwarmMemory`, and ITP delegation hooks. Duplicated modules under `src/memory`, `src/payments`, `src/rsi`, `src/native`, `src/skills.ts`, shared config/types/constants, and the top-level `native/` Rust tree were removed.
+- **Public API** — `src/index.ts` re-exports all public symbols from `clawpowers` and adds agent-only exports (`AgentState`, control loop, plugin, gateway, `SwarmMemory`, delegation hooks, and runtime constants such as `VALID_TRANSITIONS`).
+- **Tests** — **132 tests** across **11 files** (agent-focused; capability tests live in Skills). Down from the previous monolithic count by design.
+
+### Removed
+
+- Local copies of native acceleration (Rust/WASM/PyO3) — provided by the `clawpowers` package.
+
 ## [1.0.0] - 2026-04-02
 
 ### Added

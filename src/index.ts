@@ -1,148 +1,34 @@
 /**
  * ClawPowers Agent — Public API
+ * Re-exports clawpowers (Skills library) plus agent runtime: state machine, control loop, plugin, gateway.
  */
 
-// Types
-export type {
-  AgentState,
-  AgentStatus,
-  Goal,
-  GoalSource,
-  Plan,
-  PlanStatus,
-  Step,
-  StepStatus,
-  Profile,
-  ProfileName,
-  SkillManifest,
-  SkillRequirements,
-  ConfigFile,
-  RSIConfig,
-  RSITier,
-  RSITierMode,
-  RSITierT4Mode,
-  RSIMutation,
-  RSIMutationStatus,
-  MemoryEntry,
-  MemoryOutcome,
-  MemoryStats,
-  PaymentConfig,
-  PaymentMode,
-  LoggingConfig,
-} from './types.js';
+export * from 'clawpowers';
 
-// Agent
+export type { AgentState } from './agent-types.js';
+
+export {
+  SKILLS_DIR,
+  VALID_TRANSITIONS,
+  RSI_TIER_ALLOWED_MODES,
+  SAFETY_INVARIANTS,
+  PERFORMANCE,
+} from './agent-constants.js';
+
 export { createAgentState, transition, canTransition, isTerminal, isActive, getValidTransitions } from './agent.js';
 
-// Config
-export { loadConfig, loadConfigSafe, saveConfig, initConfig, getConfigValue, setConfigValue } from './config.js';
-
-// Constants
-export { VERSION, PACKAGE_NAME, CLAWPOWERS_HOME, DEFAULT_CONFIG, VALID_TRANSITIONS, RSI_TIER_ALLOWED_MODES, SAFETY_INVARIANTS, PERFORMANCE } from './constants.js';
-
-// Skills
-export { discoverSkills, loadSkillManifest, getActiveSkills, listSkillsWithStatus, parseFrontmatter } from './skills.js';
-
-// Plugin
 export { createClawPowersPlugin } from './plugin.js';
 export type { ClawPowersPlugin, PluginContext } from './plugin.js';
 
-// Gateway
 export { generateGatewayConfig, writeGatewayConfig, gatewayConfigToYaml } from './gateway.js';
 export type { GatewayConfig, GatewaySkillConfig } from './gateway.js';
 
-// Agent Control Loop
 export { parseTask } from './agent/intake.js';
 export { createPlan, approvePlan, validatePlanDependencies } from './agent/planner.js';
 export { executeStep, executePlan } from './agent/executor.js';
 export { reviewOutput } from './agent/reviewer.js';
 export { completeTask } from './agent/completion.js';
 
-// Payments
-export { detect402, isPaymentRequired } from './payments/discovery.js';
-export { SpendingPolicy } from './payments/spending.js';
-export { PaymentExecutor } from './payments/executor.js';
-export type { MCPPaymentClient } from './payments/executor.js';
+export { SwarmMemory } from './swarm/memory.js';
 
-// New Types
-export type {
-  StepResult,
-  PlanResult,
-  CriterionResult,
-  ReviewResult,
-  TaskOutcome,
-  TaskCompletion,
-  WorkingMemory,
-  PaymentRequired,
-  PaymentRequest,
-  PaymentResult,
-  SpendingDecision,
-  PaymentAuditEntry,
-  EpisodicEntry,
-  ProceduralEntry,
-  MutationRecord,
-  CheckpointState,
-  CheckpointInfo,
-  TaskMetrics,
-  SkillMetrics,
-  SkillAggregateStats,
-  TrendDirection,
-  RSIHypothesis,
-  RSITierLabel,
-  RSIMutationExtended,
-  RSIMutationExtendedStatus,
-  ABTest,
-  ABTestResult,
-  ABTestDecision,
-  ABTestStatus,
-  RSIAuditEntry,
-  RSIAuditMetrics,
-} from './types.js';
-
-// Memory
-export {
-  WorkingMemoryManager,
-  EpisodicMemory,
-  ProceduralMemory,
-  CheckpointManager,
-  ContextInjector,
-} from './memory/index.js';
-
-// Native
-export { getNative, isNativeAvailable } from './native/index.js';
-
-// RSI
-export {
-  MetricsCollector,
-  HypothesisEngine,
-  MutationEngine,
-  ABTestManager,
-  RSIAuditLog,
-} from './rsi/index.js';
-
-// Parallel Swarm
-export {
-  ConcurrencyManager,
-  TokenPool,
-  SwarmMemory,
-  classifyHeuristic,
-  selectModel,
-  classifyTasks,
-} from './swarm/index.js';
-
-// ITP — Identical Twins Protocol
-export { encode as itpEncode, decode as itpDecode, healthCheck as itpHealthCheck } from './itp/index.js';
-export type { EncodeResult as ItpEncodeResult, DecodeResult as ItpDecodeResult } from './itp/index.js';
 export { itpEncodeMessage, itpDecodeMessage } from './itp/delegation-hook.js';
-export type {
-  ModelComplexity,
-  TaskStatus,
-  SwarmTask,
-  SwarmResult,
-  SwarmRun,
-  SwarmConfig,
-  SwarmMemoryEntry,
-  SwarmMemoryHandle,
-  TokenAllocation,
-  TokenUsageReport,
-} from './swarm/index.js';

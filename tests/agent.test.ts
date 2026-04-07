@@ -6,8 +6,8 @@ import {
   createAgentState, transition, canTransition,
   isTerminal, isActive, getValidTransitions,
 } from '../src/agent.js';
-import { VALID_TRANSITIONS } from '../src/constants.js';
-import type { Profile, AgentStatus } from '../src/types.js';
+import { VALID_TRANSITIONS } from '../src/agent-constants.js';
+import type { Profile, AgentStatus } from 'clawpowers';
 
 const TEST_PROFILE: Profile = {
   name: 'dev',

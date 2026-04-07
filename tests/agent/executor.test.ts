@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { executeStep, executePlan } from '../../src/agent/executor.js';
-import type { Step, Plan, WorkingMemory, Goal } from '../../src/types.js';
+import type { Step, Plan, WorkingMemory, Goal } from 'clawpowers';
 
 const mockGoal: Goal = {
   taskId: 'exec-test-001',

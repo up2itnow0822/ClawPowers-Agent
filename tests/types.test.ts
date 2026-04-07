@@ -3,10 +3,20 @@
  */
 import { describe, it, expect } from 'vitest';
 import type {
-  AgentState, AgentStatus, Goal, Plan, Step, Profile,
-  SkillManifest, ConfigFile, RSITier, RSIMutation, MemoryEntry,
-  PaymentConfig, StepStatus, PlanStatus,
-} from '../src/types.js';
+  AgentStatus,
+  Goal,
+  Plan,
+  Step,
+  Profile,
+  SkillManifest,
+  ConfigFile,
+  RSITier,
+  RSIMutation,
+  MemoryEntry,
+  PaymentConfig,
+  StepStatus,
+  PlanStatus,
+} from 'clawpowers';
 
 describe('Type System', () => {
   it('AgentStatus covers all valid states', () => {

@@ -8,7 +8,7 @@
  * Graceful fallback — if ITP server is down, messages pass through unchanged.
  */
 
-import { encode, decode } from './index.js';
+import { itpEncode, itpDecode } from 'clawpowers';
 
 /**
  * Encode a delegation message before sending to another agent.
@@ -25,7 +25,7 @@ export async function itpEncodeMessage(
   _to: string,
 ): Promise<string> {
   try {
-    const result = await encode(msg, from);
+    const result = await itpEncode(msg, from);
     return result.encoded;
   } catch {
     // Graceful fallback — return original message
@@ -42,7 +42,7 @@ export async function itpEncodeMessage(
  */
 export async function itpDecodeMessage(msg: string): Promise<string> {
   try {
-    const result = await decode(msg);
+    const result = await itpDecode(msg);
     return result.decoded;
   } catch {
     // Graceful fallback — return original message

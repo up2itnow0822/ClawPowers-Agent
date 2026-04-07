@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { completeTask } from '../../src/agent/completion.js';
-import type { Goal, PlanResult, ReviewResult } from '../../src/types.js';
+import type { Goal, PlanResult, ReviewResult } from 'clawpowers';
 
 const mockGoal: Goal = {
   taskId: 'complete-test-001',

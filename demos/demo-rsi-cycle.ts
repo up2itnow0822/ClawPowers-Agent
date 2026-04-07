@@ -11,12 +11,14 @@
 import { mkdtempSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { MetricsCollector } from '../src/rsi/metrics.js';
-import { HypothesisEngine } from '../src/rsi/hypothesis.js';
-import { MutationEngine } from '../src/rsi/mutation.js';
-import { ABTestManager } from '../src/rsi/ab-test.js';
-import { RSIAuditLog } from '../src/rsi/audit.js';
-import type { TaskMetrics, SkillMetrics } from '../src/types.js';
+import {
+  MetricsCollector,
+  HypothesisEngine,
+  MutationEngine,
+  ABTestManager,
+  RSIAuditLog,
+} from 'clawpowers';
+import type { TaskMetrics, SkillMetrics } from 'clawpowers';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

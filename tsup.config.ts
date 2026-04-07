@@ -10,6 +10,7 @@ export default defineConfig([
     target: 'node20',
     outDir: 'dist',
     splitting: false,
+    external: ['clawpowers'],
     banner: {
       js: '#!/usr/bin/env node',
     },
@@ -23,5 +24,6 @@ export default defineConfig([
     target: 'node20',
     outDir: 'dist',
     splitting: false,
+    external: ['clawpowers'],
   },
 ]);

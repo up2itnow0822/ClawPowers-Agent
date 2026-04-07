@@ -3,13 +3,7 @@
  * Finalizes task execution with outcome determination and summary generation.
  */
 
-import type {
-  Goal,
-  PlanResult,
-  ReviewResult,
-  TaskCompletion,
-  TaskOutcome,
-} from '../types.js';
+import type { Goal, PlanResult, ReviewResult, TaskCompletion, TaskOutcome } from 'clawpowers';
 
 /**
  * Determine the outcome based on review results.

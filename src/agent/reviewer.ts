@@ -3,13 +3,7 @@
  * Post-execution review gate that validates output against success criteria.
  */
 
-import type {
-  Goal,
-  PlanResult,
-  ReviewResult,
-  CriterionResult,
-  StepResult,
-} from '../types.js';
+import type { Goal, PlanResult, ReviewResult, CriterionResult, StepResult } from 'clawpowers';
 
 /**
  * Check if a single criterion is met based on step results.

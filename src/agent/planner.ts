@@ -4,7 +4,7 @@
  */
 
 import { randomUUID } from 'node:crypto';
-import type { Goal, Plan, Step, SkillManifest } from '../types.js';
+import type { Goal, Plan, Step, SkillManifest } from 'clawpowers';
 
 /**
  * Match skills to a step description based on keyword overlap.

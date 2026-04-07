@@ -1,20 +1,14 @@
 /**
- * ClawPowers Agent — Parallel Swarm Module
- *
- * Provides TypeScript bindings for parallel swarm execution,
- * mirroring the Python a0-parallel-swarm-plugin API surface.
- *
- * Features:
- * - Bounded concurrency with adaptive throttling (ConcurrencyManager)
- * - Centralized token budget management (TokenPool)
- * - Shared memory across parallel agents (SwarmMemory)
- * - Heuristic model routing by task complexity (ModelRouter)
+ * Parallel swarm — re-exports from clawpowers plus Agent-local SwarmMemory.
  */
 
-export { ConcurrencyManager } from './concurrency.js';
-export { TokenPool } from './token_pool.js';
-export { SwarmMemory } from './memory.js';
-export { classifyHeuristic, selectModel, classifyTasks } from './model_router.js';
+export {
+  ConcurrencyManager,
+  TokenPool,
+  classifyHeuristic,
+  selectModel,
+  classifyTasks,
+} from 'clawpowers';
 export type {
   ModelComplexity,
   TaskStatus,
@@ -26,4 +20,6 @@ export type {
   SwarmMemoryHandle,
   TokenAllocation,
   TokenUsageReport,
-} from './types.js';
+} from 'clawpowers';
+
+export { SwarmMemory } from './memory.js';

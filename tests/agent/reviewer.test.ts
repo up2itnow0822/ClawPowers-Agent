@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { reviewOutput } from '../../src/agent/reviewer.js';
-import type { Goal, PlanResult } from '../../src/types.js';
+import type { Goal, PlanResult } from 'clawpowers';
 
 const mockGoal: Goal = {
   taskId: 'review-test-001',

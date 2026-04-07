@@ -7,11 +7,14 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
 import {
-  loadConfig, saveConfig, initConfig,
-  getConfigValue, setConfigValue,
-} from '../src/config.js';
-import { DEFAULT_CONFIG } from '../src/constants.js';
-import type { ConfigFile } from '../src/types.js';
+  loadConfig,
+  saveConfig,
+  initConfig,
+  getConfigValue,
+  setConfigValue,
+  DEFAULT_CONFIG,
+} from 'clawpowers';
+import type { ConfigFile } from 'clawpowers';
 
 describe('Config Manager', () => {
   let testDir: string;

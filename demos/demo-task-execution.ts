@@ -13,8 +13,8 @@ import { createPlan, approvePlan } from '../src/agent/planner.js';
 import { executePlan } from '../src/agent/executor.js';
 import { reviewOutput } from '../src/agent/reviewer.js';
 import { completeTask } from '../src/agent/completion.js';
-import { WorkingMemoryManager } from '../src/memory/working.js';
-import type { Step, WorkingMemory, SkillManifest } from '../src/types.js';
+import { WorkingMemoryManager } from 'clawpowers';
+import type { Step, WorkingMemory, SkillManifest } from 'clawpowers';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

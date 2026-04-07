@@ -4,8 +4,9 @@
  */
 
 import { randomUUID } from 'node:crypto';
-import { VALID_TRANSITIONS } from './constants.js';
-import type { AgentState, AgentStatus, Profile, MemoryStats } from './types.js';
+import { VALID_TRANSITIONS } from './agent-constants.js';
+import type { AgentState } from './agent-types.js';
+import type { AgentStatus, Profile, MemoryStats } from 'clawpowers';
 
 // ─── Factory ──────────────────────────────────────────────────────────────────
 
