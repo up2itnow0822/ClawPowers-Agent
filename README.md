@@ -54,15 +54,11 @@ ClawPowers Agent includes a parallel execution engine for running multiple tasks
 - **Model Router** — Automatic complexity classification (simple/moderate/complex) routes tasks to optimal models
 - **Swarm Memory** — Shared episodic context across concurrent tasks
 
-### Verified Performance (April 2026)
+### Indicative Performance
 
-5 health/monitoring tasks — parallel swarm vs 5 sequential cron jobs:
+Parallel swarm execution reduces tokens and wall time when tasks share common context (system prompts, working memory, model preambles). **Actual savings vary widely by workload** — they depend on how much context overlap exists, which models the tasks target, and the size of the working-memory footprint.
 
-| Metric | Sequential | Parallel Swarm | Improvement |
-|--------|-----------|----------------|-----------|
-| Tokens | 52,800 | 18,300 | **65% reduction** |
-| Wall time | ~25s | ~5s | **5× faster** |
-| Cost/run | $0.182 | $0.062 | **66% cheaper** |
+In internal 5-task health-check testing we observed wall-time speedups around 5x and token reductions in the 30–65% range depending on configuration. These numbers are illustrative, not guaranteed. See the [ClawPowers-Skills README](https://github.com/up2itnow0822/ClawPowers-Skills#swarm-vs-sequential-cron--indicative-performance) for methodology and caveats. A reproducible benchmark script is on the roadmap.
 
 ## ITP (Identical Twins Protocol)
 
