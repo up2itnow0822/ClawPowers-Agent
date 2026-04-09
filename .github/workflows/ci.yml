@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
-      - run: npm ci
+      - run: npm install --include=optional
       - run: npm run sync:skills
       - run: npm run lint
       - run: npm run typecheck
