@@ -1,7 +1,7 @@
 # 60-Second Demo
 
 ```bash
-npm install -g openclaw@2026.4.5 clawpowers-agent
+npm install -g openclaw@2026.4.9 clawpowers-agent
 clawpowers init
 clawpowers status
 clawpowers run "Reply with READY and a one-line summary of the active runtime."

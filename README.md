@@ -2,7 +2,7 @@
 
 **Launch surface:** `clawpowers-agent` is the thin wrapper runtime around a stock, updatable OpenClaw instance. The shared capability implementation lives in the `clawpowers` library.
 
-**Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` 2026.4.5.
+**Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` 2026.4.9.
 
 **More docs:** [SECURITY](./SECURITY.md) · [Compatibility](./COMPATIBILITY.md) · [Known Limitations](./KNOWN_LIMITATIONS.md) · [Licensing](./LICENSING.md) · [Releasing](./RELEASING.md) · [Demo](./DEMO.md) · [Roadmap](./ROADMAP.md)
 
@@ -127,7 +127,7 @@ ClawPowers Agent runs on top of [OpenClaw](https://openclaw.ai), the AI agent pl
 **Install OpenClaw:**
 
 ```bash
-npm install -g openclaw@2026.4.5
+npm install -g openclaw@2026.4.9
 ```
 
 **Configure a model provider:** OpenClaw needs at least one LLM provider configured. Add your API key to `~/.openclaw/config.json` or set the appropriate environment variable (e.g., `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`). See [openclaw.ai](https://openclaw.ai) for full setup docs.
@@ -146,7 +146,7 @@ Once OpenClaw is running, install and initialize ClawPowers:
 
 ```bash
 # Install (pulls in clawpowers automatically)
-npm install -g openclaw@2026.4.5 clawpowers-agent
+npm install -g openclaw@2026.4.9 clawpowers-agent
 
 # Initialize config at ~/.clawpowers/
 clawpowers init
