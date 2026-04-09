@@ -36,7 +36,8 @@ describe('CLI', () => {
   it('--version shows version', () => {
     const { stdout, exitCode } = runCLI(['--version']);
     expect(exitCode).toBe(0);
-    expect(stdout).toContain('1.1.0');
+    const { version } = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'package.json'), 'utf8'));
+    expect(stdout).toContain(version);
   });
 
   it('--help lists all commands', () => {
