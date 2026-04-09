@@ -4,11 +4,16 @@
 
 **Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` 2026.4.5.
 
-**More docs:** [SECURITY](./SECURITY.md) · [Compatibility](./COMPATIBILITY.md) · [Known Limitations](./KNOWN_LIMITATIONS.md) · [Licensing](./LICENSING.md) · [Releasing](./RELEASING.md) · [Demo](./DEMO.md)
+**More docs:** [SECURITY](./SECURITY.md) · [Compatibility](./COMPATIBILITY.md) · [Known Limitations](./KNOWN_LIMITATIONS.md) · [Licensing](./LICENSING.md) · [Releasing](./RELEASING.md) · [Demo](./DEMO.md) · [Roadmap](./ROADMAP.md)
+
+[![CI](https://github.com/up2itnow0822/ClawPowers-Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/up2itnow0822/ClawPowers-Agent/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 > The autonomous AI coding agent that plans, executes, reviews, remembers, and self-improves.
 
 > **Patent Pending** — Non-Custodial Multi-Chain Financial Infrastructure System for Autonomous AI Agents
+
+> **License note:** This package is MIT-licensed. It depends on `clawpowers`, which is licensed under **BSL 1.1** (non-production use is free; production use requires a commercial license until April 3, 2030, after which it converts to Apache 2.0). Review [LICENSING.md](./LICENSING.md) before commercial use.
 
 ClawPowers is a TypeScript framework for building autonomous coding agents with a full control loop, persistent memory, automatic payment handling (x402), and recursive self-improvement (RSI). It runs on [OpenClaw](https://openclaw.ai) and orchestrates 26+ skills to complete coding tasks end-to-end.
 
@@ -107,13 +112,33 @@ const encoded = await encodeTaskDescription('Analyze revenue data');
 const decoded = await decodeSwarmResult(workerResult);
 ```
 
-Graceful fallback: operates in passthrough mode when the ITP server is offline.
+**ITP server:** ITP compression is provided by a companion server that maintains the shared codebook. The server is run by AI Agent Economy and is available to all ClawPowers users at no additional cost during the early-access period. You do not need to self-host it. When the server is unreachable, the library operates in passthrough mode with no compression but full functionality preserved. The `graceful fallback` in the code above handles this transparently. Self-hosted ITP server support is on the roadmap.
 
 **Live ITP benchmark snapshot:**
 - **Codebook:** `v1.0.0`, 99 entries
 - **Corpus benchmark:** **11.95%** token reduction on 25 messages
 - **Swarm payload benchmark:** **27.32%** task-token reduction on a 5-task swarm
 - **Hybrid swarm benchmark:** **63.25%** effective input-cost reduction from live ITP compression plus modeled prompt caching
+
+## Prerequisites: OpenClaw
+
+ClawPowers Agent runs on top of [OpenClaw](https://openclaw.ai), the AI agent platform. You need a working OpenClaw installation before running `clawpowers`.
+
+**Install OpenClaw:**
+
+```bash
+npm install -g openclaw@2026.4.5
+```
+
+**Configure a model provider:** OpenClaw needs at least one LLM provider configured. Add your API key to `~/.openclaw/config.json` or set the appropriate environment variable (e.g., `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`). See [openclaw.ai](https://openclaw.ai) for full setup docs.
+
+**Verify OpenClaw is working:**
+
+```bash
+openclaw status
+```
+
+Once OpenClaw is running, install and initialize ClawPowers:
 
 ## Quick Start
 
@@ -187,6 +212,14 @@ ClawPowers implements four tiers of recursive self-improvement, each with differ
 - RSI safety tier definitions
 - Sandbox boundaries
 - Authentication credentials
+
+**T1/T2 hard bounding boxes** (enforced via Zod schema; mutations outside these ranges are rejected automatically):
+- `timeout`: minimum 5 seconds, maximum 300 seconds
+- `retry_count`: minimum 0, maximum 5
+- `context_window_fraction`: minimum 0.25 (RSI may not truncate below 25% of available context)
+- `max_parallel_tasks`: minimum 1, maximum 20
+
+These limits prevent reward-hacking scenarios where T1 minimizes token usage by setting `retry_count = 0` or aggressively truncating context windows to pass fragile tests.
 
 ```bash
 # Check current tier modes
