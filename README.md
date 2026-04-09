@@ -2,6 +2,11 @@
 
 **Launch surface:** `clawpowers-agent` is the thin wrapper runtime around a stock, updatable OpenClaw instance. The shared capability implementation lives in the `clawpowers` library.
 
+## Canonical Links
+- Product site: https://clawpowers.ai
+- Docs: https://clawpowers.ai/docs
+- Agent runtime: https://clawpowers.ai/agent
+
 **Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` 2026.4.9.
 
 **More docs:** [SECURITY](./SECURITY.md) · [Compatibility](./COMPATIBILITY.md) · [Known Limitations](./KNOWN_LIMITATIONS.md) · [Licensing](./LICENSING.md) · [Releasing](./RELEASING.md) · [Demo](./DEMO.md) · [Roadmap](./ROADMAP.md)

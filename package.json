@@ -1,7 +1,7 @@
 {
   "name": "clawpowers-agent",
   "version": "1.1.5",
-  "description": "Autonomous AI coding agent that orchestrates 26+ skills via OpenClaw — thin runtime over the clawpowers capability library",
+  "description": "Autonomous AI coding agent that orchestrates 26+ skills via OpenClaw \u2014 thin runtime over the clawpowers capability library",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -89,7 +89,7 @@
       "./index.ts"
     ]
   },
-  "homepage": "https://www.npmjs.com/package/clawpowers-agent",
+  "homepage": "https://clawpowers.ai/agent",
   "bugs": {
     "url": "https://github.com/up2itnow0822/ClawPowers-Agent/issues"
   },
