@@ -23,6 +23,9 @@
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 1.1.5 | 2026-04-09 | Final launch closeout: Node 22.12+ runtime alignment for OpenClaw, clean npm-registry lockfile, CI smoke path fixed |
+| 1.1.4 | 2026-04-09 | CI green, launch-ready surface, compatibility updated to clawpowers 2.2.4 |
+| 1.1.3 | 2026-04-09 | Security automation, ROADMAP, CI badges, license stack callout, OpenClaw onboarding, ITP server docs |
 | 1.1.2 | 2026-04-09 | Polish pass: homepage/bugs/exports/engines added, README config version fixed, npm install -g corrected, compatibility matrix updated |
 | 1.1.1 | 2026-04-08 | Patch: CHANGELOG date corrections, RELEASING populated, README registry fix, peer dep bumped to clawpowers@^2.2.1, `npm pkg fix` repository URL |
 | 1.1.0 | 2026-04-08 | First npm publish. Thin OpenClaw wrapper, clawpowers peer dependency, deterministic skill sync, smoke test, pre-launch audit pass |

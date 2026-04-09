@@ -4,6 +4,15 @@ All notable changes to ClawPowers Agent are documented here.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.1.5] - 2026-04-09
+
+### Fixed
+
+- CI now runs on Node 22 so the OpenClaw smoke test executes in a supported runtime
+- `package-lock.json` regenerated from the npm registry so `npm ci` succeeds on clean GitHub runners
+- README and Known Limitations now state the real OpenClaw runtime requirement: Node.js 22.12+
+- `engines.node` updated to `>=22.12.0` to match the underlying OpenClaw requirement
+
 ## [1.1.1] - 2026-04-08
 
 ### Fixed

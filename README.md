@@ -132,6 +132,8 @@ npm install -g openclaw@2026.4.5
 
 **Configure a model provider:** OpenClaw needs at least one LLM provider configured. Add your API key to `~/.openclaw/config.json` or set the appropriate environment variable (e.g., `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`). See [openclaw.ai](https://openclaw.ai) for full setup docs.
 
+**Node version:** current OpenClaw releases require **Node.js 22.12+**. If `openclaw` exits immediately during `clawpowers init` or `clawpowers run`, check `node --version` first.
+
 **Verify OpenClaw is working:**
 
 ```bash
@@ -296,7 +298,7 @@ clawpowers skills remove <name>          # Remove skill from active profile
 
 ### Prerequisites
 
-- Node.js ≥ 20
+- Node.js ≥ 22.12.0
 - TypeScript ≥ 5.5
 
 ### Setup

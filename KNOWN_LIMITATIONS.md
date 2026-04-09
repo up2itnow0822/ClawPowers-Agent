@@ -15,6 +15,6 @@
 
 ## Important operational notes
 
-- `clawpowers run` depends on a working local OpenClaw installation and configured model/auth state
+- `clawpowers run` depends on a working local OpenClaw installation, Node.js 22.12+, and configured model/auth state
 - clean-install success does not guarantee provider auth is configured on a fresh machine
 - wallet/payment primitives inherit their security and runtime constraints from the `clawpowers` package
