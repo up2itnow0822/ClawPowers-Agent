@@ -13,6 +13,28 @@ This project follows [Semantic Versioning](https://semver.org/).
 - README and Known Limitations now state the real OpenClaw runtime requirement: Node.js 22.12+
 - `engines.node` updated to `>=22.12.0` to match the underlying OpenClaw requirement
 
+## [1.1.4] - 2026-04-09
+
+### Fixed
+
+- Release/version surfaces aligned to `clawpowers` 2.2.4
+- Final launch-ready repo and npm surfaces published
+
+## [1.1.3] - 2026-04-09
+
+### Fixed
+
+- Added Dependabot, CodeQL, release automation, ROADMAP, and CI badge surfaces
+- Added explicit OpenClaw onboarding, license stack callout, and ITP server documentation
+- Documented RSI hard bounding boxes and tightened launch-readiness docs
+
+## [1.1.2] - 2026-04-09
+
+### Fixed
+
+- `package.json` homepage, bugs URL, exports field, and engines normalization added
+- README install/config references updated and compatibility matrix refreshed
+
 ## [1.1.1] - 2026-04-08
 
 ### Fixed
