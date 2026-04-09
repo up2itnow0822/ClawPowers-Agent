@@ -1,6 +1,6 @@
 {
   "name": "clawpowers-agent",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Autonomous AI coding agent that orchestrates 26+ skills via OpenClaw — thin runtime over the clawpowers capability library",
   "type": "module",
   "main": "dist/index.js",
@@ -58,16 +58,16 @@
   "author": "Bill Wilson <bill@ai-agent-economy.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.0.0"
   },
   "dependencies": {
-    "clawpowers": "^2.2.1",
+    "clawpowers": "^2.2.2",
     "commander": "^12.1.0",
     "js-yaml": "^4.1.0",
     "zod": "^3.23.8"
   },
   "peerDependencies": {
-    "clawpowers": "^2.2.1",
+    "clawpowers": "^2.2.2",
     "openclaw": "2026.4.5"
   },
   "devDependencies": {
@@ -75,7 +75,7 @@
     "@types/node": "^20.14.0",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
-    "clawpowers": "^2.2.1",
+    "clawpowers": "^2.2.2",
     "eslint": "^9.24.0",
     "globals": "^16.0.0",
     "openclaw": "2026.4.5",
@@ -88,5 +88,19 @@
     "extensions": [
       "./index.ts"
     ]
+  },
+  "homepage": "https://www.npmjs.com/package/clawpowers-agent",
+  "bugs": {
+    "url": "https://github.com/up2itnow0822/ClawPowers-Agent/issues"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./plugin": {
+      "import": "./dist/openclaw-plugin.js",
+      "types": "./dist/openclaw-plugin.d.ts"
+    }
   }
 }

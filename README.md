@@ -119,7 +119,7 @@ Graceful fallback: operates in passthrough mode when the ITP server is offline.
 
 ```bash
 # Install (pulls in clawpowers automatically)
-npm install -g clawpowers-agent
+npm install -g openclaw@2026.4.5 clawpowers-agent
 
 # Initialize config at ~/.clawpowers/
 clawpowers init
@@ -217,7 +217,7 @@ Config lives at `~/.clawpowers/config.json` with Zod validation:
 
 ```json
 {
-  "version": "1.0.0",
+  "version": "1.1.1",
   "profile": "dev",
   "rsi": {
     "enabled": true,

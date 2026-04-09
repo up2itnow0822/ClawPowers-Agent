@@ -4,6 +4,16 @@ All notable changes to ClawPowers Agent are documented here.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-04-08
+
+### Fixed
+
+- `package.json` homepage, bugs URL, exports field, and engines normalization added
+- Peer dependency bumped to `clawpowers@^2.2.1`
+- CHANGELOG publish dates corrected to 2026-04-08
+- RELEASING.md populated with published versions table
+- `npm pkg fix` repository URL normalization applied
+
 ## [1.1.0] - 2026-04-08
 
 ### Changed
