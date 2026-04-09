@@ -14,7 +14,6 @@ import {
   setConfigValue,
   DEFAULT_CONFIG,
 } from 'clawpowers';
-import type { ConfigFile } from 'clawpowers';
 
 describe('Config Manager', () => {
   let testDir: string;

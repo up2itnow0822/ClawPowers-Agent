@@ -1,7 +1,5 @@
 /**
- * ClawPowers Agent — OpenClaw Plugin Skeleton
- * Integration point with OpenClaw's plugin-sdk.
- * Exports lifecycle hooks: onLoad, onSessionStart, onSessionEnd, onError.
+ * ClawPowers Agent — compatibility adapter + actual OpenClaw plugin export.
  */
 
 import type { Profile } from 'clawpowers';
@@ -9,7 +7,7 @@ import { loadConfig, discoverSkills, getActiveSkills } from 'clawpowers';
 import type { AgentState } from './agent-types.js';
 import { createAgentState } from './agent.js';
 import { SKILLS_DIR } from './agent-constants.js';
-import pkg from '../package.json' with { type: 'json' };
+import openClawPlugin from './openclaw-plugin.js';
 
 // ─── Plugin Types ─────────────────────────────────────────────────────────────
 
@@ -48,7 +46,7 @@ function loadProfileForConfig(): Profile {
 export function createClawPowersPlugin(): ClawPowersPlugin {
   return {
     name: 'clawpowers',
-    version: pkg.version,
+    version: 'sdk-adapter',
 
     onLoad(): PluginContext {
       const config = loadConfig();
@@ -82,3 +80,5 @@ export function createClawPowersPlugin(): ClawPowersPlugin {
     },
   };
 }
+
+export default openClawPlugin;

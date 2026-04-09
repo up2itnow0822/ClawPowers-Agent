@@ -4,7 +4,7 @@ All notable changes to ClawPowers Agent are documented here.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
-## [1.1.0] - 2026-04-06
+## [1.1.0] - 2026-04-08
 
 ### Changed
 

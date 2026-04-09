@@ -182,7 +182,6 @@ describe('Agent State Machine', () => {
 
   it('transition updates updatedAt timestamp', () => {
     const state = createAgentState(TEST_PROFILE);
-    const before = state.updatedAt;
     // Small delay to ensure different timestamp
     const next = transition(state, 'intake');
     expect(next.updatedAt).toBeDefined();

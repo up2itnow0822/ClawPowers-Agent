@@ -19,9 +19,18 @@ export { createAgentState, transition, canTransition, isTerminal, isActive, getV
 
 export { createClawPowersPlugin } from './plugin.js';
 export type { ClawPowersPlugin, PluginContext } from './plugin.js';
+export { default as openClawPlugin } from './plugin.js';
 
 export { generateGatewayConfig, writeGatewayConfig, gatewayConfigToYaml } from './gateway.js';
 export type { GatewayConfig, GatewaySkillConfig } from './gateway.js';
+
+export {
+  ensureClawPowersPluginInstalled,
+  ensureGatewayStarted,
+  getOpenClawRuntimeStatus,
+  runWrappedAgentTurn,
+  syncClawPowersSkills,
+} from './openclaw-runtime.js';
 
 export { parseTask } from './agent/intake.js';
 export { createPlan, approvePlan, validatePlanDependencies } from './agent/planner.js';

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { createPlan, approvePlan, validatePlanDependencies } from '../../src/agent/planner.js';
-import type { Goal, Plan, Step, SkillManifest } from 'clawpowers';
+import type { Goal, Plan, SkillManifest } from 'clawpowers';
 
 const mockGoal: Goal = {
   taskId: 'test-task-001',

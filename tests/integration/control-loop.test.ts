@@ -6,7 +6,7 @@
 import { describe, it, expect } from 'vitest';
 import { parseTask } from '../../src/agent/intake.js';
 import { createPlan, approvePlan, validatePlanDependencies } from '../../src/agent/planner.js';
-import { executeStep, executePlan } from '../../src/agent/executor.js';
+import { executePlan } from '../../src/agent/executor.js';
 import { reviewOutput } from '../../src/agent/reviewer.js';
 import { completeTask } from '../../src/agent/completion.js';
 import { WorkingMemoryManager } from 'clawpowers';

@@ -10,13 +10,13 @@ export default defineConfig([
     target: 'node20',
     outDir: 'dist',
     splitting: false,
-    external: ['clawpowers'],
+    external: ['clawpowers', 'openclaw', 'openclaw/plugin-sdk'],
     banner: {
       js: '#!/usr/bin/env node',
     },
   },
   {
-    entry: ['src/index.ts'],
+    entry: ['src/index.ts', 'src/openclaw-plugin.ts'],
     format: ['esm'],
     dts: true,
     clean: false,
@@ -24,6 +24,6 @@ export default defineConfig([
     target: 'node20',
     outDir: 'dist',
     splitting: false,
-    external: ['clawpowers'],
+    external: ['clawpowers', 'openclaw', 'openclaw/plugin-sdk'],
   },
 ]);

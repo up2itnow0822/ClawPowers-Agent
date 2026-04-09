@@ -134,12 +134,8 @@ describe('executePlan', () => {
       parallelizable: true,
     };
     const memory = createWorkingMemory(parallelPlan);
-    const executionBatches: string[][] = [];
-    let currentBatch: string[] = [];
-    let batchResolvers: Array<() => void> = [];
 
     const runner = async (step: Step) => {
-      currentBatch.push(step.stepId);
       return { success: true, output: `done: ${step.stepId}` };
     };
 

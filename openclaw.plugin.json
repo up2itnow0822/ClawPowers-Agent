@@ -1,0 +1,13 @@
+{
+  "id": "clawpowers-agent",
+  "name": "ClawPowers Agent",
+  "description": "Thin ClawPowers wrapper around a stock OpenClaw runtime, backed by the clawpowers capability library.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "skills": [
+    "skills"
+  ]
+}

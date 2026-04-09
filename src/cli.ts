@@ -20,6 +20,12 @@ import pkg from '../package.json' with { type: 'json' };
 import { SKILLS_DIR } from './agent-constants.js';
 import { createAgentState } from './agent.js';
 import { writeGatewayConfig } from './gateway.js';
+import {
+  ensureClawPowersPluginInstalled,
+  getOpenClawRuntimeStatus,
+  runWrappedAgentTurn,
+  syncClawPowersSkills,
+} from './openclaw-runtime.js';
 
 // ─── Program ──────────────────────────────────────────────────────────────────
 
@@ -53,7 +59,19 @@ program
     console.log(`👤 Profile: @${state.profile.name}`);
     console.log(`🔄 Status: ${state.status}`);
     console.log('');
-    console.log('Control loop execution requires Phase 2 (intake → plan → execute → review).');
+
+    const syncedSkills = syncClawPowersSkills();
+    ensureClawPowersPluginInstalled();
+
+    if (syncedSkills.length > 0) {
+      console.log(`🧩 Synced skills: ${syncedSkills.join(', ')}`);
+      console.log('');
+    }
+
+    const result = runWrappedAgentTurn(`[ClawPowers-Agent]\n${task}`);
+    if (result.length > 0) {
+      console.log(result);
+    }
   });
 
 // ─── status ───────────────────────────────────────────────────────────────────
@@ -64,11 +82,14 @@ program
   .action(() => {
     const config = loadConfigSafe();
     const skills = discoverSkills(config.skillsDir ?? SKILLS_DIR);
+    const runtime = getOpenClawRuntimeStatus();
     console.log(`ClawPowers Agent v${pkg.version}`);
     console.log('========================');
     console.log(`Status:    idle`);
     console.log(`Profile:   @${config.profile}`);
     console.log(`Skills:    ${skills.length} discovered`);
+    console.log(`Gateway:   ${runtime.gatewayHealthy ? 'healthy' : 'not running'}`);
+    console.log(`OpenClaw Skills Dir: ${runtime.skillsDir}`);
     console.log('');
     console.log('RSI:');
     console.log(`  Enabled: ${config.rsi.enabled}`);
@@ -106,6 +127,12 @@ program
     // Write gateway config
     writeGatewayConfig(config, []);
     console.log(`  ✅ Gateway config written`);
+
+    const syncedSkills = syncClawPowersSkills();
+    console.log(`  ✅ Synced ${syncedSkills.length} ClawPowers skill${syncedSkills.length === 1 ? '' : 's'}`);
+
+    ensureClawPowersPluginInstalled();
+    console.log('  ✅ OpenClaw plugin installed/linked');
 
     console.log('');
     console.log(`Done! Run \`clawpowers status\` to verify.`);

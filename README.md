@@ -1,5 +1,11 @@
 # ClawPowers Agent
 
+**Launch surface:** `clawpowers-agent` is the thin wrapper runtime around a stock, updatable OpenClaw instance. The shared capability implementation lives in the `clawpowers` library.
+
+**Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` 2026.4.5.
+
+**More docs:** [SECURITY](./SECURITY.md) · [Compatibility](./COMPATIBILITY.md) · [Known Limitations](./KNOWN_LIMITATIONS.md) · [Licensing](./LICENSING.md) · [Releasing](./RELEASING.md) · [Demo](./DEMO.md)
+
 > The autonomous AI coding agent that plans, executes, reviews, remembers, and self-improves.
 
 > **Patent Pending** — Non-Custodial Multi-Chain Financial Infrastructure System for Autonomous AI Agents
@@ -61,11 +67,34 @@ Running N tasks as a single swarm instead of N separate sessions avoids reloadin
 - **Wall time:** parallel fan-out is significantly faster than sequential execution, scaling with task count and concurrency limit
 - **Token usage:** shared-context overhead is paid once per swarm run instead of once per task
 
-Exact token reduction varies with context size, task complexity, and model. We are collecting real API traces to publish concrete numbers. To model the savings for your own workload, see `benchmarks/swarm-vs-sequential.mjs` in the [`clawpowers`](https://github.com/up2itnow0822/ClawPowers-Skills) library.
+**Current measurement snapshot from the underlying `clawpowers` library:**
 
-## ITP (Identical Twins Protocol) — Experimental
+**Live ITP compression measurements:**
+- **25-message corpus:** 11 of 25 messages compressed, `862` to `759` estimated tokens, **11.95% token reduction**, **7.8 ms/message** round-trip
+- **5-task live swarm payload:** `183` to `133` task tokens, **27.32% payload reduction**, **5 of 5 tasks compressed**, **10.8 ms** average encode latency
 
-> **Status: Experimental, pending production measurement.** Speed improvements on parallel identical-context tasks are confirmed. Exact token-reduction magnitude varies significantly by workload and has not yet been validated across enough real runs to publish a headline number.
+**Modeled prompt-cache economics on those same live prompt sizes:**
+
+| Scenario | Effective input units | Reduction vs baseline | Source type |
+|----------|-----------------------|-----------------------|-------------|
+| Baseline | 1902.00 | 0.00% | Derived from live prompt sizes |
+| ITP only | 1848.00 | 2.84% | Live ITP server compression applied to full prompts |
+| Prompt cache only | 752.95 | 60.41% | Anthropic cache-pricing model |
+| ITP + prompt cache | 698.95 | 63.25% | Hybrid result: live ITP compression + modeled cache pricing |
+
+Additional measured data:
+- **Shared prompt prefix in swarm test:** 1,372 characters, about 343 estimated input tokens
+- **Three-set hybrid validation on a MacBook Pro (Apple M1, 16 GB RAM) with benchmark runner model `openai-codex/gpt-5.4`:** combined reduction ranged from **61.89%** to **63.25%**, with a **62.56%** mean and **0.56** standard deviation
+
+Reproduce the underlying benchmarks from [`clawpowers`](https://github.com/up2itnow0822/ClawPowers-Skills):
+- `node benchmarks/itp-measurement.mjs` for the live ITP corpus benchmark
+- `node benchmarks/swarm-vs-sequential.mjs` for the structure-only swarm cost model
+- `node benchmarks/itp-cache-swarm-benchmark.mjs` for the hybrid benchmark (live ITP compression + modeled cache economics)
+- `node benchmarks/itp-cache-multi-swarm-benchmark.mjs` for the same hybrid methodology across three swarm sets
+
+## ITP (Identical Twins Protocol) - Experimental
+
+> **Status: Experimental.** ITP compression and latency numbers below are measured against the running server. Any prompt-cache numbers are modeled Anthropic cache economics applied to those same live prompt sizes.
 
 Context compression protocol for multi-agent communication. Deduplicates shared context between agents using the same or similar models.
 
@@ -79,6 +108,12 @@ const decoded = await decodeSwarmResult(workerResult);
 ```
 
 Graceful fallback: operates in passthrough mode when the ITP server is offline.
+
+**Live ITP benchmark snapshot:**
+- **Codebook:** `v1.0.0`, 99 entries
+- **Corpus benchmark:** **11.95%** token reduction on 25 messages
+- **Swarm payload benchmark:** **27.32%** task-token reduction on a 5-task swarm
+- **Hybrid swarm benchmark:** **63.25%** effective input-cost reduction from live ITP compression plus modeled prompt caching
 
 ## Quick Start
 
@@ -95,6 +130,12 @@ clawpowers run "Build a REST API with Express and Zod validation. Tests pass."
 # Check status
 clawpowers status
 ```
+
+## Architecture Summary
+
+- **`clawpowers`** is the capability library, payments, memory, RSI, wallet, swarm, ITP, native/WASM acceleration, and skill assets.
+- **`clawpowers-agent`** is the stock OpenClaw wrapper, CLI, plugin packaging, skill-sync layer, and runtime glue.
+- **OpenClaw** remains the underlying runtime. The goal is to stay aligned with stock OpenClaw instead of forking it.
 
 ## Architecture
 
@@ -227,9 +268,11 @@ clawpowers skills remove <name>          # Remove skill from active profile
 
 ### Setup
 
+> **Local development note:** in this workspace, `clawpowers-agent/` is the canonical local checkout for agent edits. Keep local changes there to avoid clone drift. The GitHub repo name stays `ClawPowers-Agent`.
+
 ```bash
-git clone https://github.com/up2itnow0822/ClawPowers-Agent.git
-cd ClawPowers-Agent
+git clone https://github.com/up2itnow0822/ClawPowers-Agent.git clawpowers-agent
+cd clawpowers-agent
 npm install
 ```
 
@@ -281,3 +324,5 @@ npm run demo:rsi       # RSI self-improvement cycle
 ## License
 
 MIT — see [LICENSE](./LICENSE)
+
+For commercial use, review both this repo and the underlying `clawpowers` package licensing. See [LICENSING.md](./LICENSING.md).

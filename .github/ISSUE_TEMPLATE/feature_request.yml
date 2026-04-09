@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest an improvement for ClawPowers-Agent
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Note wrapper, plugin, OpenClaw compatibility, or skills propagation impact if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Why this matters
