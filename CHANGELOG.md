@@ -4,6 +4,14 @@ All notable changes to ClawPowers Agent are documented here.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.1.6] - 2026-04-09
+
+### Fixed
+
+- Added clawpowers.ai canonical links across package metadata and docs
+- Synced the generated OpenClaw extension bundle version and the published config example to 1.1.6
+- Updated the compatibility matrix to reflect the live `clawpowers` 2.2.5 release
+
 ## [1.1.5] - 2026-04-09
 
 ### Fixed

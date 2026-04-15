@@ -4,7 +4,7 @@
 
 | clawpowers-agent | clawpowers | openclaw | Status |
 | --- | --- | --- | --- |
-| 1.1.x (latest: 1.1.6) | 2.2.x (latest: 2.2.4) | 2026.4.9 | Supported |
+| 1.1.x (latest: 1.1.6) | 2.2.x (latest: 2.2.5) | 2026.4.9 | Supported |
 
 ## Notes
 

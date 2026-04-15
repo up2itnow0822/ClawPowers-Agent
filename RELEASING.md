@@ -23,6 +23,7 @@
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 1.1.6 | 2026-04-09 | Added clawpowers.ai canonical links and aligned the remaining 1.1.6 version surfaces |
 | 1.1.5 | 2026-04-09 | Final launch closeout: Node 22.12+ runtime alignment for OpenClaw, clean npm-registry lockfile, CI smoke path fixed |
 | 1.1.4 | 2026-04-09 | CI green, launch-ready surface, compatibility updated to clawpowers 2.2.4 |
 | 1.1.3 | 2026-04-09 | Security automation, ROADMAP, CI badges, license stack callout, OpenClaw onboarding, ITP server docs |
