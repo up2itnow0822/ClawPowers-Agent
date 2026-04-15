@@ -119,7 +119,7 @@ function buildExtensionBundle(): string {
     join(EXTENSION_BUNDLE_DIR, 'package.json'),
     JSON.stringify({
       name: 'clawpowers-agent-openclaw-extension',
-      version: '1.1.6',
+      version: '1.1.7',
       type: 'module',
       openclaw: {
         extensions: ['./index.js'],

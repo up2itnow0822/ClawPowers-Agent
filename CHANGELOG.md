@@ -4,6 +4,14 @@ All notable changes to ClawPowers Agent are documented here.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.1.7] - 2026-04-14
+
+### Fixed
+
+- Republished the runtime after aligning the remaining 1.1.x version surfaces inside docs and generated extension metadata
+- Updated the declared `clawpowers` compatibility/dependency range to the repaired 2.2.6 release
+- Refreshed the published README/config example so npm and GitHub now show the same current version line
+
 ## [1.1.6] - 2026-04-09
 
 ### Fixed
