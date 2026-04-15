@@ -12,12 +12,12 @@ jobs:
       matrix:
         node-version: [22]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
-      - run: npm install --include=optional
+      - run: npm ci
       - run: npm run sync:skills
       - run: npm run lint
       - run: npm run typecheck

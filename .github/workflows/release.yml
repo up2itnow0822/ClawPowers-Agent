@@ -13,13 +13,13 @@ jobs:
       contents: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           registry-url: "https://registry.npmjs.org"
           cache: npm
-      - run: npm install --include=optional
+      - run: npm ci
       - run: npm run sync:skills
       - run: npm run lint
       - run: npm run typecheck
