@@ -6,6 +6,72 @@
 import { randomUUID } from 'node:crypto';
 import type { Goal, Plan, Step, SkillManifest } from 'clawpowers';
 
+function parseNumberedListItem(line: string): string | null {
+  let index = 0;
+  while (index < line.length && line.charAt(index) === ' ') {
+    index += 1;
+  }
+
+  const startDigits = index;
+  while (index < line.length) {
+    const char = line.charAt(index);
+    if (char < '0' || char > '9') {
+      break;
+    }
+    index += 1;
+  }
+
+  if (index === startDigits) {
+    return null;
+  }
+
+  const marker = line.charAt(index);
+  if (marker !== '.' && marker !== ')') {
+    return null;
+  }
+
+  index += 1;
+  if (line.charAt(index) !== ' ') {
+    return null;
+  }
+
+  return line.slice(index + 1).trim() || null;
+}
+
+function parseBulletListItem(line: string): string | null {
+  const trimmed = line.trimStart();
+  if (!trimmed.startsWith('- ') && !trimmed.startsWith('* ')) {
+    return null;
+  }
+
+  return trimmed.slice(2).trim() || null;
+}
+
+function splitSentences(text: string): string[] {
+  const sentences: string[] = [];
+  let current = '';
+
+  for (const char of text) {
+    if (char === '\n' || char === '.' || char === '!' || char === '?') {
+      const trimmed = current.trim();
+      if (trimmed) {
+        sentences.push(trimmed);
+      }
+      current = '';
+      continue;
+    }
+
+    current += char;
+  }
+
+  const trailing = current.trim();
+  if (trailing) {
+    sentences.push(trailing);
+  }
+
+  return sentences;
+}
+
 /**
  * Match skills to a step description based on keyword overlap.
  * Returns skill names sorted by relevance (number of matching words).
@@ -39,11 +105,10 @@ function decomposeGoal(goal: Goal): string[] {
   const steps: string[] = [];
 
   // Check for numbered list items: "1. ...", "2. ..."
-  const numberedPattern = /^\s*\d+[.)]\s+(.+)$/gm;
-  let numberedMatch: RegExpExecArray | null;
-  while ((numberedMatch = numberedPattern.exec(text)) !== null) {
-    if (numberedMatch[1]) {
-      steps.push(numberedMatch[1].trim());
+  for (const line of text.split('\n')) {
+    const numbered = parseNumberedListItem(line);
+    if (numbered) {
+      steps.push(numbered);
     }
   }
 
@@ -52,11 +117,10 @@ function decomposeGoal(goal: Goal): string[] {
   }
 
   // Check for bullet points: "- ...", "* ..."
-  const bulletPattern = /^\s*[-*]\s+(.+)$/gm;
-  let bulletMatch: RegExpExecArray | null;
-  while ((bulletMatch = bulletPattern.exec(text)) !== null) {
-    if (bulletMatch[1]) {
-      steps.push(bulletMatch[1].trim());
+  for (const line of text.split('\n')) {
+    const bullet = parseBulletListItem(line);
+    if (bullet) {
+      steps.push(bullet);
     }
   }
 
@@ -65,10 +129,7 @@ function decomposeGoal(goal: Goal): string[] {
   }
 
   // Check for "then" / "and then" / "after that" sequential connectors
-  const sentences = text
-    .split(/[.!?\n]+/)
-    .map(s => s.trim())
-    .filter(s => s.length > 0);
+  const sentences = splitSentences(text);
 
   if (sentences.length > 1) {
     return sentences;

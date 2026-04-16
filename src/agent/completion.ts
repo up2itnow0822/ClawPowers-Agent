@@ -104,9 +104,16 @@ function collectSkillsUsed(planResult: PlanResult): string[] {
   for (const result of planResult.stepResults) {
     if (result.status === 'success') {
       // Parse skills from executor output format: [skills: name1, name2]
-      const match = result.output.match(/\[skills:\s*([^\]]+)\]/);
-      if (match?.[1]) {
-        const names = match[1].split(',').map(s => s.trim()).filter(Boolean);
+      const marker = '[skills:';
+      const start = result.output.indexOf(marker);
+      if (start !== -1) {
+        const end = result.output.indexOf(']', start + marker.length);
+        if (end === -1) {
+          continue;
+        }
+
+        const rawNames = result.output.slice(start + marker.length, end).trim();
+        const names = rawNames.split(',').map(s => s.trim()).filter(Boolean);
         for (const name of names) {
           if (name !== 'none') {
             skills.add(name);
