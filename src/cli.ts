@@ -83,9 +83,19 @@ program
     const config = loadConfigSafe();
     const skills = discoverSkills(config.skillsDir ?? SKILLS_DIR);
     const runtime = getOpenClawRuntimeStatus();
+    const profile: Profile = {
+      name: config.profile,
+      description: `${config.profile} profile`,
+      skills: [],
+      defaultModel: 'anthropic/claude-sonnet-4',
+      maxConcurrentAgents: 3,
+      paymentEnabled: config.payments.mode !== 'disabled',
+      rsiEnabled: config.rsi.enabled,
+    };
+    const state = createAgentState(profile);
     console.log(`ClawPowers Agent v${pkg.version}`);
     console.log('========================');
-    console.log(`Status:    idle`);
+    console.log(`Status:    ${state.status}`);
     console.log(`Profile:   @${config.profile}`);
     console.log(`Skills:    ${skills.length} discovered`);
     console.log(`Gateway:   ${runtime.gatewayHealthy ? 'healthy' : 'not running'}`);
