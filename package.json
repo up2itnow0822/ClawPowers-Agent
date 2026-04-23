@@ -76,7 +76,7 @@
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
     "clawpowers": "^2.2.6",
-    "eslint": "^9.24.0",
+    "eslint": "^10.2.1",
     "globals": "^17.5.0",
     "openclaw": "2026.4.14",
     "tsup": "^8.1.0",
