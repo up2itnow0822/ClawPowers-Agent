@@ -37,4 +37,20 @@ if (!/itp|clawpowers/i.test(skillsList)) {
   throw new Error(`Expected ClawPowers skills to be visible. skills list:\n${skillsList}`);
 }
 
+if (process.env.CLAWPOWERS_OPENCLAW_RUN_SMOKE === '1') {
+  const runOutput = run('node', [
+    'dist/cli.js',
+    'run',
+    'Reply with READY and a one-line summary of the active runtime.',
+  ]);
+
+  if (!/READY/i.test(runOutput)) {
+    throw new Error(`Expected provider-backed run smoke to include READY. output:\n${runOutput}`);
+  }
+
+  console.log('Provider-backed OpenClaw run smoke passed.');
+} else {
+  console.log('Provider-backed OpenClaw run smoke skipped. Set CLAWPOWERS_OPENCLAW_RUN_SMOKE=1 with a configured OpenClaw provider to enable it.');
+}
+
 console.log('OpenClaw smoke check passed.');
