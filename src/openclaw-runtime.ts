@@ -8,6 +8,9 @@ import { SKILLS_DIR as CLAWPOWERS_SKILLS_DIR } from './agent-constants.js';
 
 const PACKAGE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OPENCLAW_BIN = process.env.CLAWPOWERS_OPENCLAW_BIN ?? 'openclaw';
+const OPENCLAW_BIN_ARGS = process.env.CLAWPOWERS_OPENCLAW_BIN_ARGS
+  ? JSON.parse(process.env.CLAWPOWERS_OPENCLAW_BIN_ARGS) as string[]
+  : [];
 const EXTENSION_BUNDLE_DIR = join(CLAWPOWERS_HOME, 'openclaw-extension');
 
 export interface OpenClawCommandResult {
@@ -41,7 +44,8 @@ function resolveOpenClawSkillsDir(): string {
 
 function runOpenClaw(args: readonly string[], options?: { readonly allowFailure?: boolean }): OpenClawCommandResult {
   const profile = process.env.CLAWPOWERS_OPENCLAW_PROFILE;
-  const fullArgs = profile ? ['--profile', profile, ...args] : [...args];
+  const openClawArgs = profile ? ['--profile', profile, ...args] : [...args];
+  const fullArgs = [...OPENCLAW_BIN_ARGS, ...openClawArgs];
 
   const result = spawnSync(OPENCLAW_BIN, fullArgs, {
     encoding: 'utf8',
