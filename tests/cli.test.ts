@@ -3,14 +3,18 @@
  */
 import { describe, it, expect } from 'vitest';
 import { execFileSync } from 'node:child_process';
-import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const CLI_PATH = join(import.meta.dirname, '..', 'src', 'cli.ts');
-const TSX = 'npx';
+const TEST_DIR = dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = join(TEST_DIR, '..');
+const CLI_PATH = join(REPO_ROOT, 'src', 'cli.ts');
+const TSX_PATH = join(REPO_ROOT, 'node_modules', 'tsx', 'dist', 'cli.mjs');
 
 function runCLI(args: string[]): { stdout: string; exitCode: number } {
   try {
-    const stdout = execFileSync(TSX, ['tsx', CLI_PATH, ...args], {
+    const stdout = execFileSync(process.execPath, [TSX_PATH, CLI_PATH, ...args], {
       encoding: 'utf-8',
       timeout: 15000,
       env: { ...process.env, NODE_NO_WARNINGS: '1' },
@@ -36,7 +40,9 @@ describe('CLI', () => {
   it('--version shows version', () => {
     const { stdout, exitCode } = runCLI(['--version']);
     expect(exitCode).toBe(0);
-    const { version } = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'package.json'), 'utf8'));
+    const { version } = JSON.parse(readFileSync(join(REPO_ROOT, 'package.json'), 'utf8')) as {
+      version: string;
+    };
     expect(stdout).toContain(version);
   });
 
