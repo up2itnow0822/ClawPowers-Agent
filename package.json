@@ -17,6 +17,7 @@
     "lint": "eslint src tests demos",
     "sync:skills": "node scripts/sync-skills.mjs",
     "smoke:openclaw": "node scripts/ci-smoke-openclaw.mjs",
+    "smoke:openclaw:mock": "node scripts/ci-smoke-openclaw.mjs --mock-openclaw",
     "verify:pack": "npm pack --dry-run",
     "clean": "rm -rf dist",
     "demo:task": "tsx demos/demo-task-execution.ts",
