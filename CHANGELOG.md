@@ -40,7 +40,7 @@ This project follows [Semantic Versioning](https://semver.org/).
 ### Fixed
 
 - Release/version surfaces aligned to `clawpowers` 2.2.4
-- Final launch-ready repo and npm surfaces published
+- Final preview repo and npm surfaces published
 
 ## [1.1.3] - 2026-04-09
 
@@ -125,3 +125,4 @@ This project follows [Semantic Versioning](https://semver.org/).
 ### License
 
 - BSL 1.1 (Business Source License) with 4-year conversion to Apache 2.0
+
