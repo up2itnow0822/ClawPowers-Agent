@@ -82,7 +82,7 @@
     "openclaw": "2026.5.7",
     "tsup": "^8.1.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.5.0",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.5"
   },
   "openclaw": {
