@@ -48,15 +48,7 @@ jobs:
           fi
       - name: Publish package
         if: steps.npm_version.outputs.exists != 'true'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          if [ -n "${NODE_AUTH_TOKEN:-}" ]; then
-            npm publish --access public
-          else
-            echo "NPM_TOKEN is not configured; attempting npm Trusted Publishing via GitHub OIDC."
-            npm publish --access public --provenance
-          fi
+        run: npm publish --access public --provenance
       - name: Note skipped npm publish
         if: steps.npm_version.outputs.exists == 'true'
         run: echo "Skipped npm publish because ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }} is already published."
