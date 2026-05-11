@@ -11,7 +11,7 @@ const env = {
   ...process.env,
   CLAWPOWERS_OPENCLAW_PROFILE: profile,
 };
-let openClawCommand = 'openclaw';
+let openClawCommand = process.platform === 'win32' ? 'openclaw.cmd' : 'openclaw';
 let openClawBaseArgs = [];
 
 if (useMockOpenClaw) {
@@ -79,6 +79,7 @@ function run(cmd, args, options = {}) {
     env,
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
+    shell: process.platform === 'win32' && cmd.toLowerCase().endsWith('.cmd'),
     ...options,
   });
 }

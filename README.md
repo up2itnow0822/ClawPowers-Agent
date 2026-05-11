@@ -8,7 +8,7 @@
 - Docs: https://clawpowers.ai/docs
 - Agent runtime: https://clawpowers.ai/agent
 
-**Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` 2026.4.14.
+**Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` 2026.5.7.
 
 **More docs:** [SECURITY](./SECURITY.md) · [Compatibility](./COMPATIBILITY.md) · [Known Limitations](./KNOWN_LIMITATIONS.md) · [Licensing](./LICENSING.md) · [Releasing](./RELEASING.md) · [Demo](./DEMO.md) · [Roadmap](./ROADMAP.md)
 
@@ -28,7 +28,7 @@ ClawPowers Agent is a TypeScript runtime wrapper for running ClawPowers capabili
 ClawPowers Agent runs on top of [OpenClaw](https://openclaw.ai). You need a working OpenClaw installation before running `clawpowers`.
 
 ```bash
-npm install -g openclaw@2026.4.14
+npm install -g openclaw@2026.5.7
 openclaw status
 ```
 
@@ -40,7 +40,7 @@ OpenClaw needs at least one LLM provider configured. Add your API key to `~/.ope
 
 ```bash
 # Install the supported OpenClaw runtime and ClawPowers CLI wrapper.
-npm install -g openclaw@2026.4.14 clawpowers-agent
+npm install -g openclaw@2026.5.7 clawpowers-agent
 
 # Initialize config at ~/.clawpowers/.
 clawpowers init

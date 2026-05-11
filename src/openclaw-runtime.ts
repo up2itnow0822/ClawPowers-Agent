@@ -7,7 +7,11 @@ import { CLAWPOWERS_HOME } from 'clawpowers';
 import { SKILLS_DIR as CLAWPOWERS_SKILLS_DIR } from './agent-constants.js';
 
 const PACKAGE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const OPENCLAW_BIN = process.env.CLAWPOWERS_OPENCLAW_BIN ?? 'openclaw';
+function defaultOpenClawBin(): string {
+  return process.platform === 'win32' ? 'openclaw.cmd' : 'openclaw';
+}
+
+const OPENCLAW_BIN = process.env.CLAWPOWERS_OPENCLAW_BIN ?? defaultOpenClawBin();
 const OPENCLAW_BIN_ARGS = process.env.CLAWPOWERS_OPENCLAW_BIN_ARGS
   ? JSON.parse(process.env.CLAWPOWERS_OPENCLAW_BIN_ARGS) as string[]
   : [];
@@ -50,14 +54,16 @@ function runOpenClaw(args: readonly string[], options?: { readonly allowFailure?
   const result = spawnSync(OPENCLAW_BIN, fullArgs, {
     encoding: 'utf8',
     env: process.env,
+    shell: process.platform === 'win32' && OPENCLAW_BIN.toLowerCase().endsWith('.cmd'),
   });
 
   const stdout = result.stdout ?? '';
   const stderr = result.stderr ?? '';
+  const spawnError = result.error instanceof Error ? result.error.message : '';
   const status = result.status ?? 1;
 
   if (!options?.allowFailure && status !== 0) {
-    throw new Error(`openclaw ${fullArgs.join(' ')} failed (${status})\n${stderr || stdout}`.trim());
+    throw new Error(`openclaw ${fullArgs.join(' ')} failed (${status})\n${stderr || stdout || spawnError}`.trim());
   }
 
   return { stdout, stderr, status };
