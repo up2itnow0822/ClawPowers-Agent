@@ -65,7 +65,7 @@
     "clawpowers": "^2.2.6",
     "commander": "^12.1.0",
     "js-yaml": "^4.1.0",
-    "zod": "^3.23.8"
+    "zod": "^4.4.3"
   },
   "peerDependencies": {
     "clawpowers": "^2.2.6",
