@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { chmodSync, existsSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 
 const repoRoot = process.cwd();
 const profile = process.env.CLAWPOWERS_OPENCLAW_PROFILE || `clawpowers-ci-${process.pid}`;
@@ -11,8 +11,20 @@ const env = {
   ...process.env,
   CLAWPOWERS_OPENCLAW_PROFILE: profile,
 };
-let openClawCommand = process.platform === 'win32' ? 'openclaw.cmd' : 'openclaw';
-let openClawBaseArgs = [];
+function findOpenClawMjs() {
+  const candidates = [
+    resolve(repoRoot, 'node_modules', 'openclaw', 'openclaw.mjs'),
+    resolve(repoRoot, '..', 'openclaw', 'openclaw.mjs'),
+  ];
+  if (process.env.APPDATA) {
+    candidates.push(resolve(process.env.APPDATA, 'npm', 'node_modules', 'openclaw', 'openclaw.mjs'));
+  }
+  return candidates.find((candidate) => existsSync(candidate)) ?? null;
+}
+
+const openClawMjs = findOpenClawMjs();
+let openClawCommand = openClawMjs ? process.execPath : 'openclaw';
+let openClawBaseArgs = openClawMjs ? [openClawMjs] : [];
 
 if (useMockOpenClaw) {
   const mockBinDir = mkdtempSync(join(tmpdir(), 'clawpowers-openclaw-mock-'));
@@ -79,7 +91,6 @@ function run(cmd, args, options = {}) {
     env,
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
-    shell: process.platform === 'win32' && cmd.toLowerCase().endsWith('.cmd'),
     ...options,
   });
 }

@@ -7,14 +7,28 @@ import { CLAWPOWERS_HOME } from 'clawpowers';
 import { SKILLS_DIR as CLAWPOWERS_SKILLS_DIR } from './agent-constants.js';
 
 const PACKAGE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-function defaultOpenClawBin(): string {
-  return process.platform === 'win32' ? 'openclaw.cmd' : 'openclaw';
+
+function findOpenClawMjs(): string | null {
+  const candidates = [
+    resolve(process.cwd(), 'node_modules', 'openclaw', 'openclaw.mjs'),
+    resolve(PACKAGE_ROOT, 'node_modules', 'openclaw', 'openclaw.mjs'),
+    resolve(PACKAGE_ROOT, '..', 'openclaw', 'openclaw.mjs'),
+    resolve(PACKAGE_ROOT, '..', '..', 'openclaw', 'openclaw.mjs'),
+  ];
+
+  const appData = process.env.APPDATA;
+  if (appData) {
+    candidates.push(resolve(appData, 'npm', 'node_modules', 'openclaw', 'openclaw.mjs'));
+  }
+
+  return candidates.find((candidate) => existsSync(candidate)) ?? null;
 }
 
-const OPENCLAW_BIN = process.env.CLAWPOWERS_OPENCLAW_BIN ?? defaultOpenClawBin();
+const DEFAULT_OPENCLAW_MJS = findOpenClawMjs();
+const OPENCLAW_BIN = process.env.CLAWPOWERS_OPENCLAW_BIN ?? (DEFAULT_OPENCLAW_MJS ? process.execPath : 'openclaw');
 const OPENCLAW_BIN_ARGS = process.env.CLAWPOWERS_OPENCLAW_BIN_ARGS
   ? JSON.parse(process.env.CLAWPOWERS_OPENCLAW_BIN_ARGS) as string[]
-  : [];
+  : DEFAULT_OPENCLAW_MJS ? [DEFAULT_OPENCLAW_MJS] : [];
 const EXTENSION_BUNDLE_DIR = join(CLAWPOWERS_HOME, 'openclaw-extension');
 
 export interface OpenClawCommandResult {
@@ -54,7 +68,6 @@ function runOpenClaw(args: readonly string[], options?: { readonly allowFailure?
   const result = spawnSync(OPENCLAW_BIN, fullArgs, {
     encoding: 'utf8',
     env: process.env,
-    shell: process.platform === 'win32' && OPENCLAW_BIN.toLowerCase().endsWith('.cmd'),
   });
 
   const stdout = result.stdout ?? '';
