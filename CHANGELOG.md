@@ -4,6 +4,12 @@ All notable changes to ClawPowers Agent are documented here.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+### Added
+
+- Added a deterministic `npm run smoke:openclaw:mock` path that exercises `clawpowers init`, plugin load, skills visibility, and `clawpowers run` through a fake provider response without requiring real provider secrets.
+
 ## [1.1.7] - 2026-04-14
 
 ### Fixed
