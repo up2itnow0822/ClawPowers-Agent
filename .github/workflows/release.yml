@@ -48,7 +48,9 @@ jobs:
           fi
       - name: Publish package
         if: steps.npm_version.outputs.exists != 'true'
-        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
       - name: Note skipped npm publish
         if: steps.npm_version.outputs.exists == 'true'
         run: echo "Skipped npm publish because ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }} is already published."
