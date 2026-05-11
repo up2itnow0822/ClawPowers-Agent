@@ -7,7 +7,7 @@ export default defineConfig([
     dts: false,
     clean: true,
     sourcemap: true,
-    target: 'node20',
+    target: 'node22',
     outDir: 'dist',
     splitting: false,
     external: ['clawpowers', 'openclaw', 'openclaw/plugin-sdk'],
@@ -21,9 +21,10 @@ export default defineConfig([
     dts: true,
     clean: false,
     sourcemap: true,
-    target: 'node20',
+    target: 'node22',
     outDir: 'dist',
     splitting: false,
     external: ['clawpowers', 'openclaw', 'openclaw/plugin-sdk'],
   },
 ]);
+
