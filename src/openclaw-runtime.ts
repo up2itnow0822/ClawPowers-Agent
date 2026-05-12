@@ -5,6 +5,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CLAWPOWERS_HOME } from 'clawpowers';
 import { SKILLS_DIR as CLAWPOWERS_SKILLS_DIR } from './agent-constants.js';
+import { PACKAGE_VERSION } from './package-version.js';
 
 const PACKAGE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -142,7 +143,7 @@ function buildExtensionBundle(): string {
     join(EXTENSION_BUNDLE_DIR, 'package.json'),
     JSON.stringify({
       name: 'clawpowers-agent-openclaw-extension',
-      version: '1.1.7',
+      version: PACKAGE_VERSION,
       type: 'module',
       openclaw: {
         extensions: ['./index.js'],
@@ -235,3 +236,4 @@ export function getOpenClawRuntimeStatus(): { readonly gatewayHealthy: boolean; 
 }
 
 export { CLAWPOWERS_HOME };
+

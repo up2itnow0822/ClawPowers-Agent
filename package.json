@@ -23,7 +23,8 @@
     "demo:task": "tsx demos/demo-task-execution.ts",
     "demo:memory": "tsx demos/demo-memory-cycle.ts",
     "demo:rsi": "tsx demos/demo-rsi-cycle.ts",
-    "prepack": "npm run sync:skills && npm run build"
+    "prepack": "npm run sync:skills && npm run build",
+    "check:release-surfaces": "node scripts/check-release-surfaces.mjs"
   },
   "files": [
     "dist/",
