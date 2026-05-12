@@ -7,11 +7,16 @@ const packageRoot = dirname(scriptDir);
 const targetDir = join(packageRoot, 'skills');
 
 function resolveSourceDir() {
-  const adjacentRepo = join(packageRoot, '..', 'ClawPowers-Skills', 'src', 'skills');
-  if (existsSync(adjacentRepo)) return adjacentRepo;
+  const adjacentRepoSkills = join(packageRoot, '..', 'ClawPowers-Skills', 'skills');
+  if (existsSync(adjacentRepoSkills)) return adjacentRepoSkills;
+
+  const adjacentRepoSourceSkills = join(packageRoot, '..', 'ClawPowers-Skills', 'src', 'skills');
+  if (existsSync(adjacentRepoSourceSkills)) return adjacentRepoSourceSkills;
 
   const installedCandidates = [
+    join(packageRoot, 'node_modules', 'clawpowers', 'skills'),
     join(packageRoot, 'node_modules', 'clawpowers', 'src', 'skills'),
+    join(packageRoot, '..', 'clawpowers', 'skills'),
     join(packageRoot, '..', 'clawpowers', 'src', 'skills'),
   ];
 

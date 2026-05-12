@@ -8,6 +8,7 @@
 - `npm test`
 - `npm run build`
 - `npm run verify:pack`
+- `npm run verify:consumer-install`
 - `npm run smoke:openclaw`
 - clean-install tarball E2E verified
 - README, CHANGELOG, SECURITY, compatibility, and limitations docs updated
@@ -23,6 +24,7 @@
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 1.1.12 | 2026-05-12 | Consumer-install smoke gate; ClawPowers 2.2.7 compatibility refresh |
 | 1.1.11 | 2026-05-11 | OpenClaw 2026.5.7 compatibility repair; Windows OpenClaw runtime resolution fixed; npm token release path configured |
 | 1.1.7 | 2026-04-14 | Repair release: published version surfaces aligned and dependency range moved to `clawpowers@^2.2.6` |
 | 1.1.6 | 2026-04-09 | Added clawpowers.ai canonical links and aligned the remaining 1.1.6 version surfaces |

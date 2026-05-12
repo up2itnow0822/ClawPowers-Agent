@@ -26,6 +26,7 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run verify:pack
+      - run: npm run verify:consumer-install
       - run: npm audit --omit=dev
       - run: npm run smoke:openclaw
       - name: Read package metadata

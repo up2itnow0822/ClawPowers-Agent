@@ -111,7 +111,7 @@ Config lives at `~/.clawpowers/config.json` with Zod validation.
 
 ```json
 {
-  "version": "1.1.11",
+  "version": "1.1.12",
   "profile": "dev",
   "rsi": {
     "enabled": true,

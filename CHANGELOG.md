@@ -6,6 +6,14 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## Unreleased
 
+## [1.1.12] - 2026-05-12
+
+### Fixed
+
+- Fixed skill asset sync to package the full top-level ClawPowers skill catalog instead of only the internal `src/skills` helper surface.
+- Added a clean consumer-install smoke gate that packs the npm tarball, installs it with the pinned OpenClaw peer in a fresh project, verifies CLI bin wiring, runs `clawpowers init`/`status`, and imports public runtime/plugin exports.
+- Updated the supported ClawPowers capability-library range to `clawpowers@^2.2.7` after the launch-critical wallet/passphrase and consumer-smoke release.
+
 ## [1.1.11] - 2026-05-11
 
 ### Fixed

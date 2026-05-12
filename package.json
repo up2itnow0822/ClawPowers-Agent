@@ -1,6 +1,6 @@
 {
   "name": "clawpowers-agent",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Autonomous AI coding agent that orchestrates 26+ skills via OpenClaw — thin runtime over the clawpowers capability library",
   "type": "module",
   "main": "dist/index.js",
@@ -24,7 +24,8 @@
     "demo:memory": "tsx demos/demo-memory-cycle.ts",
     "demo:rsi": "tsx demos/demo-rsi-cycle.ts",
     "prepack": "npm run sync:skills && npm run build",
-    "check:release-surfaces": "node scripts/check-release-surfaces.mjs"
+    "check:release-surfaces": "node scripts/check-release-surfaces.mjs",
+    "verify:consumer-install": "node scripts/verify-consumer-install.mjs"
   },
   "files": [
     "dist/",
@@ -63,13 +64,13 @@
     "node": ">=22.12.0"
   },
   "dependencies": {
-    "clawpowers": "^2.2.6",
+    "clawpowers": "^2.2.7",
     "commander": "^12.1.0",
     "js-yaml": "^4.1.0",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "clawpowers": "^2.2.6",
+    "clawpowers": "^2.2.7",
     "openclaw": "2026.5.7"
   },
   "devDependencies": {
@@ -77,7 +78,7 @@
     "@types/node": "^25.6.0",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
-    "clawpowers": "^2.2.6",
+    "clawpowers": "^2.2.7",
     "eslint": "^10.3.0",
     "globals": "^17.5.0",
     "openclaw": "2026.5.7",
