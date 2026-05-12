@@ -111,7 +111,7 @@ Config lives at `~/.clawpowers/config.json` with Zod validation.
 
 ```json
 {
-  "version": "1.1.7",
+  "version": "1.1.11",
   "profile": "dev",
   "rsi": {
     "enabled": true,
@@ -179,3 +179,4 @@ npm run demo:rsi
 MIT — see [LICENSE](./LICENSE).
 
 For commercial use, review both this repo and the underlying `clawpowers` package licensing. See [LICENSING.md](./LICENSING.md).
+

@@ -6,9 +6,14 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## Unreleased
 
-### Added
+## [1.1.11] - 2026-05-11
 
+### Fixed
+
+- Published the OpenClaw 2026.5.7 compatibility repair release so `npm install clawpowers-agent@latest openclaw@latest --save-exact` no longer fails peer resolution.
+- Resolved OpenClaw on Windows through the local/global `openclaw.mjs` entrypoint and `process.execPath`, avoiding `.cmd` shim failures during `clawpowers init` and runtime smoke checks.
 - Added a deterministic `npm run smoke:openclaw:mock` path that exercises `clawpowers init`, plugin load, skills visibility, and `clawpowers run` through a fake provider response without requiring real provider secrets.
+- Updated release publishing to use the configured npm token path after npm Trusted Publishing/OIDC was not authorized for this package.
 
 ## [1.1.7] - 2026-04-14
 
@@ -125,4 +130,5 @@ This project follows [Semantic Versioning](https://semver.org/).
 ### License
 
 - BSL 1.1 (Business Source License) with 4-year conversion to Apache 2.0
+
 

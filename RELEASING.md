@@ -23,6 +23,7 @@
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 1.1.11 | 2026-05-11 | OpenClaw 2026.5.7 compatibility repair; Windows OpenClaw runtime resolution fixed; npm token release path configured |
 | 1.1.7 | 2026-04-14 | Repair release: published version surfaces aligned and dependency range moved to `clawpowers@^2.2.6` |
 | 1.1.6 | 2026-04-09 | Added clawpowers.ai canonical links and aligned the remaining 1.1.6 version surfaces |
 | 1.1.5 | 2026-04-09 | Final launch closeout: Node 22.12+ runtime alignment for OpenClaw, clean npm-registry lockfile, CI smoke path fixed |
@@ -32,4 +33,5 @@
 | 1.1.1 | 2026-04-08 | Patch: CHANGELOG date corrections, RELEASING populated, README registry fix, peer dep bumped to clawpowers@^2.2.1, `npm pkg fix` repository URL |
 | 1.1.0 | 2026-04-08 | First npm publish. Thin OpenClaw wrapper, clawpowers peer dependency, deterministic skill sync, smoke test, pre-launch audit pass |
 | 1.0.0 | 2026-04-02 | Initial build. Agent control loop, 27 skills, 3-tier memory, RSI, payments, 327 tests (workspace-only, not published to npm) |
+
 

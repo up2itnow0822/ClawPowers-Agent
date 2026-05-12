@@ -4,7 +4,7 @@
 
 | clawpowers-agent | clawpowers | openclaw | Status |
 | --- | --- | --- | --- |
-| 1.1.x (latest: 1.1.7) | 2.2.x (latest: 2.2.6) | 2026.5.7 | Supported |
+| 1.1.x (latest: 1.1.11) | 2.2.x (latest: 2.2.6) | 2026.5.7 | Supported |
 
 ## Notes
 
@@ -12,3 +12,4 @@
 - `clawpowers` is the capability library that supplies payments, memory, RSI, wallet, swarm, and ITP primitives.
 - When `clawpowers` updates skill assets or capability implementations, `clawpowers-agent` should pick them up through package updates and skill sync.
 - OpenClaw minor or patch upgrades should be validated before widening the supported matrix.
+
