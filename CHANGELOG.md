@@ -6,6 +6,13 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## Unreleased
 
+## [1.1.13] - 2026-05-15
+
+### Fixed
+
+- Widened the OpenClaw peer range to support current 2026.5.x stable releases and restored the default `npm install clawpowers-agent@latest openclaw@latest --save-exact` path after `openclaw@latest` advanced to 2026.5.12.
+- Refreshed README and compatibility surfaces to describe the supported 2026.5.x OpenClaw line instead of a single stale patch version.
+
 ## [1.1.12] - 2026-05-12
 
 ### Fixed
