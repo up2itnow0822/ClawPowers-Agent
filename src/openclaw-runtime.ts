@@ -83,21 +83,31 @@ function runOpenClaw(args: readonly string[], options?: { readonly allowFailure?
   return { stdout, stderr, status };
 }
 
-function locateClawPowersSkillSourceDir(): string {
-  const adjacentRepo = resolve(PACKAGE_ROOT, '..', 'ClawPowers-Skills', 'src', 'skills');
-  if (existsSync(adjacentRepo)) return adjacentRepo;
+export function locateClawPowersSkillSourceDir(): string {
+  const bundledSkills = resolve(PACKAGE_ROOT, 'skills');
+  if (existsSync(bundledSkills)) return bundledSkills;
 
-  const installedCandidates = [
+  const adjacentRepoSkills = resolve(PACKAGE_ROOT, '..', 'ClawPowers-Skills', 'skills');
+  if (existsSync(adjacentRepoSkills)) return adjacentRepoSkills;
+
+  const fullCatalogCandidates = [
+    resolve(PACKAGE_ROOT, 'node_modules', 'clawpowers', 'skills'),
+    resolve(PACKAGE_ROOT, '..', 'clawpowers', 'skills'),
+  ];
+
+  for (const packagedSkills of fullCatalogCandidates) {
+    if (existsSync(packagedSkills)) return packagedSkills;
+  }
+
+  const sourceFallbackCandidates = [
+    resolve(PACKAGE_ROOT, '..', 'ClawPowers-Skills', 'src', 'skills'),
     resolve(PACKAGE_ROOT, 'node_modules', 'clawpowers', 'src', 'skills'),
     resolve(PACKAGE_ROOT, '..', 'clawpowers', 'src', 'skills'),
   ];
 
-  for (const packagedSkills of installedCandidates) {
-    if (existsSync(packagedSkills)) return packagedSkills;
+  for (const sourceSkills of sourceFallbackCandidates) {
+    if (existsSync(sourceSkills)) return sourceSkills;
   }
-
-  const bundledSkills = resolve(PACKAGE_ROOT, 'skills');
-  if (existsSync(bundledSkills)) return bundledSkills;
 
   throw new Error('Unable to locate ClawPowers skill assets for sync');
 }
