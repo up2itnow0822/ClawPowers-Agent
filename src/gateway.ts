@@ -5,7 +5,7 @@
 
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { VERSION, CLAWPOWERS_HOME } from 'clawpowers';
 import type { ConfigFile, ProfileName } from 'clawpowers';
 import { SKILLS_DIR } from './agent-constants.js';
