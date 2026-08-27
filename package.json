@@ -81,7 +81,7 @@
     "clawpowers": "^2.2.7",
     "eslint": "^10.3.0",
     "globals": "^17.5.0",
-    "openclaw": "2026.5.12",
+    "openclaw": "2026.6.11",
     "tsup": "^8.1.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
