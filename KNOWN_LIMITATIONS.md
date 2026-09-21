@@ -15,7 +15,7 @@
 
 ## Important operational notes
 
-- `clawpowers run` depends on a working local OpenClaw installation, Node.js 22.12+, and configured model/auth state
+- `clawpowers run` depends on a working local OpenClaw installation, Node.js 24.16+, and configured model/auth state
 - CI smoke coverage validates init/plugin/skills with stock OpenClaw and has a separate mock-provider path for wrapper routing; it is not a claim that every provider-backed run is validated on every machine
 - clean-install success does not guarantee provider auth is configured on a fresh machine
 - wallet/payment primitives inherit their security and runtime constraints from the `clawpowers` package
