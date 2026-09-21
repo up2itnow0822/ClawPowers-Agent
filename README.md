@@ -34,7 +34,7 @@ openclaw status
 
 OpenClaw needs at least one LLM provider configured. Add your API key to `~/.openclaw/config.json` or set the appropriate environment variable, such as `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`.
 
-**Node version:** current OpenClaw releases require Node.js 22.12+. If `openclaw` exits immediately during `clawpowers init` or `clawpowers run`, check `node --version` first.
+**Node version:** current OpenClaw releases require Node.js 24.16+ (or 26.1+). If `openclaw` exits immediately during `clawpowers init` or `clawpowers run`, check `node --version` first.
 
 ## Quick Start
 
