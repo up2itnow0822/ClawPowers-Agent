@@ -78,7 +78,7 @@
   },
   "peerDependencies": {
     "clawpowers": "^2.2.7",
-    "openclaw": ">=2026.5.7 <2026.6.0"
+    "openclaw": "2026.9.4"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",

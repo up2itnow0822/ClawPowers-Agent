@@ -8,7 +8,7 @@
 - Docs: https://clawpowers.ai/docs
 - Agent runtime: https://clawpowers.ai/agent
 
-**Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` >=2026.5.7 <2026.6.0.
+**Supported matrix:** `clawpowers-agent` 1.1.x + `clawpowers` 2.2.x + `openclaw` 2026.9.4.
 
 **More docs:** [SECURITY](./SECURITY.md) · [Compatibility](./COMPATIBILITY.md) · [Known Limitations](./KNOWN_LIMITATIONS.md) · [Licensing](./LICENSING.md) · [Releasing](./RELEASING.md) · [Demo](./DEMO.md) · [Roadmap](./ROADMAP.md)
 

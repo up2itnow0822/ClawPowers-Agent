@@ -10,7 +10,7 @@ export default defineConfig([
     target: 'node22',
     outDir: 'dist',
     splitting: false,
-    external: ['clawpowers', 'openclaw', 'openclaw/plugin-sdk'],
+    external: ['clawpowers', 'openclaw', 'openclaw/plugin-sdk', 'openclaw/plugin-sdk/core'],
     banner: {
       js: '#!/usr/bin/env node',
     },
@@ -24,7 +24,7 @@ export default defineConfig([
     target: 'node22',
     outDir: 'dist',
     splitting: false,
-    external: ['clawpowers', 'openclaw', 'openclaw/plugin-sdk'],
+    external: ['clawpowers', 'openclaw', 'openclaw/plugin-sdk', 'openclaw/plugin-sdk/core'],
   },
 ]);
 
