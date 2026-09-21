@@ -174,7 +174,8 @@ function buildExtensionBundle(): string {
 
 export function ensureClawPowersPluginInstalled(): void {
   const bundleDir = buildExtensionBundle();
-  runOpenClaw(['plugins', 'install', '--link', bundleDir], { allowFailure: false });
+  // OpenClaw 2026.9.4 refuses local --link installs outside ClawHub without --force.
+  runOpenClaw(['plugins', 'install', '--link', '--force', bundleDir], { allowFailure: false });
 }
 
 export function ensureGatewayStarted(): void {

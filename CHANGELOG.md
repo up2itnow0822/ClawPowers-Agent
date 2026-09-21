@@ -10,6 +10,10 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 - Raised the published Node engine and CI/release runners to Node 24.16+ so OpenClaw 2026.9.4 can install (`engines.node` is now `>=24.16.0`).
 
+### Fixed
+
+- Pass `--force` when linking the local OpenClaw plugin so `clawpowers init`/`run` and `verify:consumer-install` succeed on OpenClaw 2026.9.4.
+
 ## [1.1.13] - 2026-05-15
 
 ### Fixed
