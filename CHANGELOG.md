@@ -12,7 +12,7 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
-- Pass `--force` when linking the local OpenClaw plugin so `clawpowers init`/`run` and `verify:consumer-install` succeed on OpenClaw 2026.9.4.
+- Pass `--force` and `--accept-capabilities` when linking the local OpenClaw plugin so `clawpowers init`/`run` and `verify:consumer-install` succeed on OpenClaw 2026.9.4.
 
 ## [1.1.13] - 2026-05-15
 
