@@ -5,3 +5,7 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
+    ignore:
+      # ClawPowers tracks the OpenClaw version pinned on Max (2026.9.4).
+      # Upgrades go through the canary process; do not auto-open bumps.
+      - dependency-name: "openclaw"
