@@ -40,20 +40,20 @@ jobs:
             echo "Detected Node.js"
             if [ -f pnpm-lock.yaml ]; then
               corepack enable
-              pnpm install --frozen-lockfile || pnpm install
+              pnpm install --frozen-lockfile
               if has_npm_script build; then pnpm run build
               elif has_npm_script test; then pnpm test
               elif has_npm_script lint; then pnpm run lint
               else echo "No build/test/lint script; install succeeded"; fi
             elif [ -f yarn.lock ]; then
               corepack enable
-              yarn install --frozen-lockfile || yarn install
+              yarn install --frozen-lockfile
               if has_npm_script build; then yarn build
               elif has_npm_script test; then yarn test
               elif has_npm_script lint; then yarn lint
               else echo "No build/test/lint script; install succeeded"; fi
             else
-              if [ -f package-lock.json ]; then npm ci || npm install; else npm install; fi
+              if [ -f package-lock.json ]; then npm ci; else npm install; fi
               if has_npm_script build; then npm run build
               elif has_npm_script test; then npm test
               elif has_npm_script lint; then npm run lint
@@ -69,17 +69,29 @@ jobs:
               if grep -q '\[tool\.poetry\]' pyproject.toml 2>/dev/null; then
                 pip install poetry
                 poetry install --no-interaction
-                poetry run pytest -q || poetry run python -m compileall -q .
+                if poetry run python -c "import pytest" >/dev/null 2>&1; then
+                  poetry run pytest -q
+                else
+                  poetry run python -m compileall -q .
+                fi
               else
                 pip install -e ".[dev]" 2>/dev/null || pip install -e . 2>/dev/null || true
                 if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
                 if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
-                pytest -q 2>/dev/null || python -m compileall -q .
+                if python -m pytest --help >/dev/null 2>&1; then
+                  python -m pytest -q
+                else
+                  python -m compileall -q .
+                fi
               fi
             else
               if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
               if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
-              pytest -q 2>/dev/null || python -m compileall -q .
+              if python -m pytest --help >/dev/null 2>&1; then
+                python -m pytest -q
+              else
+                python -m compileall -q .
+              fi
             fi
             exit 0
           fi
