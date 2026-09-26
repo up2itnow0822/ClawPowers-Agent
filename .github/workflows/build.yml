@@ -51,12 +51,11 @@ jobs:
             fi
 
             if [ -f hardhat.config.js ] || [ -f hardhat.config.ts ] || [ -f hardhat.config.cjs ]; then
-              echo "Hardhat project — compile only"
+              echo "Hardhat project — compile"
               npx hardhat compile
               exit 0
             fi
             if [ -f foundry.toml ]; then
-              echo "Foundry project"
               curl -L https://foundry.paradigm.xyz | bash
               export PATH="$HOME/.foundry/bin:$PATH"
               foundryup
@@ -64,13 +63,18 @@ jobs:
               exit 0
             fi
             if has_npm_script build; then
-              if $RUN build; then exit 0; fi
-              echo "build script failed; install succeeded — treating as soft pass for ruleset gate"
+              $RUN build
               exit 0
             fi
-            if has_npm_script lint; then $RUN lint; exit 0; fi
-            if has_npm_script typecheck; then $RUN typecheck; exit 0; fi
-            echo "No build/lint/typecheck script; install succeeded"
+            if has_npm_script typecheck; then
+              $RUN typecheck
+              exit 0
+            fi
+            if has_npm_script lint; then
+              $RUN lint
+              exit 0
+            fi
+            echo "No build/typecheck/lint script; install succeeded"
             exit 0
           fi
 
@@ -87,19 +91,16 @@ jobs:
           fi
 
           if [ -f Cargo.toml ]; then
-            echo "Detected Rust"
             cargo check --all-targets
             exit 0
           fi
 
           if [ -f go.mod ]; then
-            echo "Detected Go"
             go test ./...
             exit 0
           fi
 
           if [ -f Makefile ] && grep -qE '^(build|test|check):' Makefile; then
-            echo "Detected Makefile"
             if grep -qE '^build:' Makefile; then make build
             elif grep -qE '^check:' Makefile; then make check
             else make test; fi
