@@ -8,6 +8,8 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Bumped the pinned `openclaw` peer and dev dependency to 2026.9.8 (supersedes the held 2026.9.6 Dependabot bump).
+
 - Raised the published Node engine and CI/release runners to Node 24.16+ so OpenClaw 2026.9.4 can install (`engines.node` is now `>=24.16.0`).
 
 ### Fixed
