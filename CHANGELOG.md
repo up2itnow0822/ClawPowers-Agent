@@ -8,7 +8,8 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
-- Raised the published Node engine and CI/release runners to Node 24.16+ so OpenClaw 2026.9.4 can install (`engines.node` is now `>=24.16.0`).
+- Raised the published Node engine and CI/release runners to Node 24.16+ so OpenClaw 2026.9.8 can install (`engines.node` is now `>=24.16.0`).
+- Retargeted the OpenClaw peer and dev pin from 2026.9.4 to 2026.9.8 to match the live Max runtime.
 
 ### Fixed
 
