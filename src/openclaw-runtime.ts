@@ -84,13 +84,13 @@ function runOpenClaw(args: readonly string[], options?: { readonly allowFailure?
 }
 
 function locateClawPowersSkillSourceDir(): string {
-  const adjacentRepo = resolve(PACKAGE_ROOT, '..', 'ClawPowers-Skills', 'src', 'skills');
-  if (existsSync(adjacentRepo)) return adjacentRepo;
-
-  // Prefer this package's bundled skills/ (may include security pauses) before an
-  // older clawpowers npm copy that would restore live AgentPay guidance.
+  // Bundled skills/ ships the security pause; prefer it over an adjacent
+  // ClawPowers-Skills checkout that may still be stale/pre-pause.
   const bundledSkills = resolve(PACKAGE_ROOT, 'skills');
   if (existsSync(bundledSkills)) return bundledSkills;
+
+  const adjacentRepo = resolve(PACKAGE_ROOT, '..', 'ClawPowers-Skills', 'src', 'skills');
+  if (existsSync(adjacentRepo)) return adjacentRepo;
 
   const installedCandidates = [
     resolve(PACKAGE_ROOT, 'node_modules', 'clawpowers', 'src', 'skills'),

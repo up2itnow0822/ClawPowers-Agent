@@ -26,5 +26,5 @@ After contract-level agent spend controls are proven (testnet+) and maintainers 
 ## Notes
 
 - Companion pause PR lands in `ClawPowers-Skills` (catalog + skill source of truth).
-- `scripts/sync-skills.mjs` preserves a locally paused `SKILL.md` when an older `clawpowers` package would overwrite it with live AgentPay guidance.
-- Runtime skill sync prefers this package's bundled `skills/` over outdated `node_modules/clawpowers` copies.
+- `scripts/sync-skills.mjs` preserves a locally paused `SKILL.md` only when syncing from a packaged `clawpowers` copy (not from authoritative `ClawPowers-Skills`, so an intentional unpause can propagate).
+- Runtime skill sync prefers this package's bundled `skills/` (with the pause) over an adjacent Skills checkout or `node_modules/clawpowers`.

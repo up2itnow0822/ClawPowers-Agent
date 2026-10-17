@@ -45,9 +45,12 @@ function syncDirectory(sourceDir, outputDir) {
       const skillFile = join(sourcePath, 'SKILL.md');
       if (existsSync(skillFile)) {
         const targetSkill = join(outputPath, 'SKILL.md');
-        // Do not let a non-paused packaged source wipe a locally paused skill.
-        if (skillIsPaused(targetSkill) && !skillIsPaused(skillFile)) {
-          console.log(`Preserving paused skill override: ${entry}`);
+        // Only block wipe from stale packaged clawpowers copies — not from
+        // ClawPowers-Skills, which is the authoritative place to unpause.
+        const fromPackagedClawpowers = /(?:^|[/\\])(?:node_modules[/\\])?clawpowers(?:[/\\]|$)/.test(sourceDir)
+          && !/ClawPowers-Skills/.test(sourceDir);
+        if (fromPackagedClawpowers && skillIsPaused(targetSkill) && !skillIsPaused(skillFile)) {
+          console.log(`Preserving paused skill override vs packaged clawpowers: ${entry}`);
           continue;
         }
         rmSync(outputPath, { recursive: true, force: true });
