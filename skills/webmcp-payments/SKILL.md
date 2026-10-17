@@ -1,41 +1,28 @@
 ---
 name: webmcp-payments
-description: "Handle HTTP 402 Payment Required responses via agentpay-mcp, enabling autonomous micropayment execution within configured spending limits."
+description: "PAUSED — payment rails disabled for security maintenance. Do not route HTTP 402 / micropayments through agentpay-mcp or related packages until contract-level enforcement is live and this skill is unpaused."
 metadata:
   hermes:
-    tags: [finance, clawpowers-catalog, hermes-compatible]
+    tags: [finance, clawpowers-catalog, hermes-compatible, paused]
+  status: paused
 ---
 
-<!-- generated-by: scripts/generate_hermes_wrappers.py -->
+<!-- synced with ClawPowers-Skills pause 2026-10-17 (Bill GO) -->
 
-# WebMCP Payments
+# WebMCP Payments — PAUSED
 
-Payments workflow wrapper for handling HTTP 402 Payment Required responses through agentpay-mcp within approved spending limits.
+**Status: PAUSED (2026-10-17).** Payment rails are paused for security maintenance pending contract-level enforcement (Safe + Zodiac Roles / Delay + AgentSpendModule).
 
-## Purpose
+## Do not use
 
-Handle HTTP 402 Payment Required responses via agentpay-mcp, enabling autonomous micropayment execution within configured spending limits.
+- Do **not** install or invoke `agentpay-mcp`, `agentwallet-sdk`, or `webmcp-payments` for live spend from this skill.
+- Do **not** set `AGENT_PRIVATE_KEY` / hot-wallet keys to “make payments work” while this pause is in effect.
+- Do **not** treat HTTP 402 responses as an automatic pay-and-retry loop via AgentPay MCP.
 
-## When to use
+## When this skill may return
 
-- when a workflow hits an HTTP 402 payment-required response
-- when an agent needs to decide whether a micropayment is allowed
-- when connecting payment-required APIs to a policy-controlled execution path
-## Quickstart
-
-- detect the 402 and capture the payment metadata first
-- check the spending policy before attempting execution
-- route execution through the AgentPay MCP lane instead of treating payment as an unguarded side effect
-## Source of truth
-
-- Catalog source: `src/skills/catalog.ts`
-- Catalog entry source class: `managed`
-- Category: `finance`
+After contract-level agent spend controls are proven (testnet+) and maintainers explicitly unpause this skill and the related npm packages.
 
 ## Notes
 
-- Current product naming in the broader workspace is AgentPay MCP, while this catalog entry remains webmcp-payments.
-- This wrapper does not imply payment credentials, wallets, or spending policies are already configured inside Hermes.
-## Compatibility boundary
-
-This file is part of the Hermes-compatible top-level `skills/` surface for this branch. It should be read as a discoverable skill bundle, not as a blanket claim that the wider `clawpowers` library/runtime surface is fully configured inside Hermes.
+- Companion pause PR lands in `ClawPowers-Skills` (catalog + skill source of truth).
