@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, statSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -27,6 +27,13 @@ function resolveSourceDir() {
   throw new Error('Unable to locate ClawPowers skill assets under ../ClawPowers-Skills/src/skills or node_modules/clawpowers/src/skills');
 }
 
+function skillIsPaused(skillMdPath) {
+  if (!existsSync(skillMdPath)) return false;
+  // Frontmatter `status: paused` must survive sync from older clawpowers packages.
+  const text = readFileSync(skillMdPath, 'utf8');
+  return /(?:^|\n)status:\s*paused\b/m.test(text) || /\bPAUSED\b/.test(text.slice(0, 800));
+}
+
 function syncDirectory(sourceDir, outputDir) {
   mkdirSync(outputDir, { recursive: true });
   const entries = readdirSync(sourceDir);
@@ -37,6 +44,12 @@ function syncDirectory(sourceDir, outputDir) {
     if (stat.isDirectory()) {
       const skillFile = join(sourcePath, 'SKILL.md');
       if (existsSync(skillFile)) {
+        const targetSkill = join(outputPath, 'SKILL.md');
+        // Do not let a non-paused packaged source wipe a locally paused skill.
+        if (skillIsPaused(targetSkill) && !skillIsPaused(skillFile)) {
+          console.log(`Preserving paused skill override: ${entry}`);
+          continue;
+        }
         rmSync(outputPath, { recursive: true, force: true });
         cpSync(sourcePath, outputPath, { recursive: true });
       }

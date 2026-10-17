@@ -87,6 +87,11 @@ function locateClawPowersSkillSourceDir(): string {
   const adjacentRepo = resolve(PACKAGE_ROOT, '..', 'ClawPowers-Skills', 'src', 'skills');
   if (existsSync(adjacentRepo)) return adjacentRepo;
 
+  // Prefer this package's bundled skills/ (may include security pauses) before an
+  // older clawpowers npm copy that would restore live AgentPay guidance.
+  const bundledSkills = resolve(PACKAGE_ROOT, 'skills');
+  if (existsSync(bundledSkills)) return bundledSkills;
+
   const installedCandidates = [
     resolve(PACKAGE_ROOT, 'node_modules', 'clawpowers', 'src', 'skills'),
     resolve(PACKAGE_ROOT, '..', 'clawpowers', 'src', 'skills'),
@@ -95,9 +100,6 @@ function locateClawPowersSkillSourceDir(): string {
   for (const packagedSkills of installedCandidates) {
     if (existsSync(packagedSkills)) return packagedSkills;
   }
-
-  const bundledSkills = resolve(PACKAGE_ROOT, 'skills');
-  if (existsSync(bundledSkills)) return bundledSkills;
 
   throw new Error('Unable to locate ClawPowers skill assets for sync');
 }
