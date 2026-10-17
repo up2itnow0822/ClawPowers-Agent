@@ -84,6 +84,11 @@ function runOpenClaw(args: readonly string[], options?: { readonly allowFailure?
 }
 
 function locateClawPowersSkillSourceDir(): string {
+  // Bundled skills/ ships the security pause; prefer it over an adjacent
+  // ClawPowers-Skills checkout that may still be stale/pre-pause.
+  const bundledSkills = resolve(PACKAGE_ROOT, 'skills');
+  if (existsSync(bundledSkills)) return bundledSkills;
+
   const adjacentRepo = resolve(PACKAGE_ROOT, '..', 'ClawPowers-Skills', 'src', 'skills');
   if (existsSync(adjacentRepo)) return adjacentRepo;
 
@@ -95,9 +100,6 @@ function locateClawPowersSkillSourceDir(): string {
   for (const packagedSkills of installedCandidates) {
     if (existsSync(packagedSkills)) return packagedSkills;
   }
-
-  const bundledSkills = resolve(PACKAGE_ROOT, 'skills');
-  if (existsSync(bundledSkills)) return bundledSkills;
 
   throw new Error('Unable to locate ClawPowers skill assets for sync');
 }
