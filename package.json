@@ -112,5 +112,8 @@
       "import": "./dist/openclaw-plugin.js",
       "types": "./dist/openclaw-plugin.d.ts"
     }
+  },
+  "overrides": {
+    "@modelcontextprotocol/sdk": "^1.32.2"
   }
 }
