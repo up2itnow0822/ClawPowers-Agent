@@ -24,6 +24,7 @@
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 1.1.14 | 2026-11-16 | OpenClaw 2026.11.2 exact peer pin; compatibility matrix and release surfaces refreshed |
 | 1.1.13 | 2026-05-15 | OpenClaw 2026.5.x peer range refresh for current npm latest |
 | 1.1.12 | 2026-05-12 | Consumer-install smoke gate; ClawPowers 2.2.7 compatibility refresh |
 | 1.1.11 | 2026-05-11 | OpenClaw 2026.5.7 compatibility repair; Windows OpenClaw runtime resolution fixed; npm token release path configured |

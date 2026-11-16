@@ -6,15 +6,18 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## Unreleased
 
+## [1.1.14] - 2026-11-16
+
 ### Changed
 
-- Bumped the pinned `openclaw` peer and dev dependency to 2026.9.8 (supersedes the held 2026.9.6 Dependabot bump).
+- Bumped the pinned `openclaw` peer and dev dependency to 2026.11.2 (consumers must install the matching exact `openclaw` version).
 
-- Raised the published Node engine and CI/release runners to Node 24.16+ so OpenClaw 2026.9.4 can install (`engines.node` is now `>=24.16.0`).
+- Raised the published Node engine and CI/release runners to Node 24.16+ so current OpenClaw releases can install (`engines.node` is now `>=24.16.0`).
 
 ### Fixed
 
-- Pass `--force` and `--accept-capabilities` when linking the local OpenClaw plugin so `clawpowers init`/`run` and `verify:consumer-install` succeed on OpenClaw 2026.9.4.
+- Pass `--force` and `--accept-capabilities` when linking the local OpenClaw plugin so `clawpowers init`/`run` and `verify:consumer-install` succeed on supported OpenClaw releases.
+- Refreshed README and compatibility matrix entries for the validated `openclaw` 2026.11.2 line.
 
 ## [1.1.13] - 2026-05-15
 
